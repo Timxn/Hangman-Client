@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="522.0" prefWidth="712.0" style="-fx-background-color: #131d1f;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.oose.gameservice.gameservice_client.AfterGame">
    <children>
       <Label layoutX="14.0" layoutY="14.0" prefHeight="31.0" prefWidth="242.0" text="Least likely to get hanged:" textFill="WHITE">
@@ -17,7 +16,7 @@
       <ListView fx:id="output_scoreboard" layoutX="14.0" layoutY="51.0" opacity="0.57" prefHeight="463.0" prefWidth="251.0" style="-fx-background-color: #476d74;" />
       <AnchorPane layoutX="380.0" layoutY="128.0" prefHeight="167.0" prefWidth="188.0" style="-fx-background-color: #7bbcc9;">
          <children>
-            <Label fx:id="output_result" alignment="CENTER" layoutX="31.0" layoutY="31.0" prefHeight="113.0" prefWidth="131.0" text="YOU WON!" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <Label fx:id="output_result" alignment="CENTER" layoutX="31.0" layoutY="31.0" prefHeight="113.0" prefWidth="131.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="MS Outlook" size="46.0" />
                </font>
