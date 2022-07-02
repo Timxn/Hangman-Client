@@ -21,7 +21,7 @@
             <Font name="MS Outlook" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="output_word" alignment="CENTER" layoutX="273.0" layoutY="541.0" prefHeight="22.0" prefWidth="456.0" text="sdfsdf" textFill="WHITE">
+      <Label fx:id="output_word" alignment="CENTER" layoutX="273.0" layoutY="541.0" prefHeight="22.0" prefWidth="456.0" textFill="WHITE">
          <font>
             <Font name="MS Outlook" size="18.0" />
          </font>
