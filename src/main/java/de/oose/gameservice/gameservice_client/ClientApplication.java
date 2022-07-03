@@ -16,7 +16,7 @@ public class ClientApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         this.stage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Start.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), DIMENSIONS_WIDTH_HEIGHT[0], DIMENSIONS_WIDTH_HEIGHT[1]);
         this.stage.setTitle("HANG YOURSELF!");
         this.stage.setScene(scene);
