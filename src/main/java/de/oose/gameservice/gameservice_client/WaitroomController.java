@@ -21,8 +21,6 @@ import java.util.StringTokenizer;
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class WaitroomController {
-    Thread housekeeper;
-
     @FXML
     Label output_gameID, output_error;
     @FXML
@@ -41,17 +39,18 @@ public class WaitroomController {
     }
 
     private void enterGame() {
-        housekeeper.stop();
-        FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Game.fxml"));
-        Scene scene = null;
         try {
-            scene = new Scene(fxmlLoader.load(), ClientApplication.DIMENSIONS_WIDTH_HEIGHT[0], ClientApplication.DIMENSIONS_WIDTH_HEIGHT[1]);
+            ClientApplication.housekeeper.interrupt();
+            FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Game.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1002, 699);
+//            Scene scene = new Scene(fxmlLoader.load(), ClientApplication.DIMENSIONS_WIDTH_HEIGHT[0], ClientApplication.DIMENSIONS_WIDTH_HEIGHT[1]);
+            ClientApplication.stage.setTitle("HANG YOURSELF!");
+            ClientApplication.stage.setScene(scene);
+            ClientApplication.stage.show();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println(e.getMessage());
+            output_error.setText("DAFUQ JOINWAITROOM()");
         }
-        ClientApplication.stage.setTitle("HANG YOURSELF!");
-        ClientApplication.stage.setScene(scene);
-        ClientApplication.stage.show();
     }
 
     public void startGame() {
@@ -63,8 +62,14 @@ public class WaitroomController {
     public void initialize() {
         output_player.setItems(FXCollections.observableArrayList());
         try {
-            housekeeper = new Thread(() -> {
+            ClientApplication.housekeeper = new Thread(() -> {
                 while (true) {
+
+                    if (Thread.interrupted()) {
+                        // We've been interrupted: no more crunching.
+                        return;
+                    }
+
                     try {
                         this.update();
                         Thread.sleep(600);
@@ -72,7 +77,7 @@ public class WaitroomController {
                     }
                 }
             });
-            housekeeper.start();
+            ClientApplication.housekeeper.start();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

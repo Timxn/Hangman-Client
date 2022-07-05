@@ -1,6 +1,7 @@
 package de.oose.gameservice.gameservice_client;
 
 import de.oose.gameservice.api.Api;
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,9 +14,6 @@ import java.io.IOException;
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class StartController {
-    Thread housekeeper;
-    boolean active;
-
     @FXML
     private Button button_create_game, button_join_game;
     @FXML
@@ -38,9 +36,10 @@ public class StartController {
 
     private void joinWaitroom() {
         try {
-            housekeeper.stop();
+            ClientApplication.housekeeper.interrupt();
             FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Waitroom.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), ClientApplication.DIMENSIONS_WIDTH_HEIGHT[0], ClientApplication.DIMENSIONS_WIDTH_HEIGHT[1]);
+            Scene scene = new Scene(fxmlLoader.load(), 864, 569);
+//            Scene scene = new Scene(fxmlLoader.load(), ClientApplication.DIMENSIONS_WIDTH_HEIGHT[0], ClientApplication.DIMENSIONS_WIDTH_HEIGHT[1]);
             ClientApplication.stage.setTitle("HANG YOURSELF!");
             ClientApplication.stage.setScene(scene);
             ClientApplication.stage.show();
@@ -50,18 +49,18 @@ public class StartController {
     }
 
     public void update() {
-//        try {
-//            api.sendRequest("updateWaiting","null");
-//        } catch (IOException e) {
-//        } catch (ClassNotFoundException e) {
-////            label_error.setText("Smb fucke up");
-//        }
     }
 
     public void initialize() {
         try {
-            housekeeper = new Thread(() -> {
+            ClientApplication.housekeeper = new Thread(() -> {
                 while (api == null) {
+
+                    if (Thread.interrupted()) {
+                        // We've been interrupted: no more crunching.
+                        return;
+                    }
+
                     try {
                         api = new Api("localhost", 8001);
                     } catch (IOException e) {
@@ -69,6 +68,12 @@ public class StartController {
                     }
                 }
                 while (true) {
+
+                    if (Thread.interrupted()) {
+                        // We've been interrupted: no more crunching.
+                        return;
+                    }
+
                     this.update();
                     try {
                         Thread.sleep(600);
@@ -76,7 +81,7 @@ public class StartController {
                     }
                 }
             });
-            housekeeper.start();
+            ClientApplication.housekeeper.start();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
