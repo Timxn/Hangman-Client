@@ -117,6 +117,18 @@ public class Api {
         return false;
     }
 
+    public int getFails() {
+        JSONObject response;
+        try {
+            JSONObject request = new JSONObject().put("command", "updateGame");
+            response = sendRequest(request);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return response.getInt("mistakesMade");
+    }
     public boolean startGame() {
         JSONObject response;
         try {
@@ -129,5 +141,30 @@ public class Api {
         }
         if (response.getString("status").equals("successful")) return true;
         return false;
+    }
+
+    public void setWord(String text) {
+        JSONObject request = new JSONObject().put("word", text)
+                        .put("command", "setWord");
+        try {
+            sendRequest(request);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean hasWord() {
+        JSONObject response;
+        JSONObject request = new JSONObject().put("command", "hasWord");
+        try {
+            response = sendRequest(request);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return response.getBoolean("hasWord");
     }
 }
