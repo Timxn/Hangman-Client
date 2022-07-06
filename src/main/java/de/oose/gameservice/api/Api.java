@@ -18,52 +18,6 @@ public class Api {
         this.objectInputStream = new DataInputStream(socket.getInputStream()); //FUCKS SMTHING UP
     }
 
-    public boolean joinGame(String gameID, String username) {
-        JSONObject request = new JSONObject();
-        request.put("command", "joinRoom")
-                .put("gameID", gameID)
-                .put("username", username);
-        JSONObject response = null;
-        try {
-            response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        if (response.getString("status").equals("successful")) return true;
-        return false;
-    }
-
-    public boolean createGame(String username) {
-        JSONObject request = new JSONObject();
-        request.put("command", "createRoom")
-                .put("username", username);
-        JSONObject response = null;
-        try {
-            response = sendRequest(request);
-        } catch (SocketException e) {
-            try {
-                api = new Api("localhost", 8001);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        if (response.getString("status").equals("successful")) return true;
-        return false;
-    }
-
-
-    public JSONObject sendRequest(JSONObject request) throws IOException, ClassNotFoundException {
-        objectOutputStream.writeUTF(request.toString());
-        return new JSONObject(objectInputStream.readUTF());
-    }
-
     public JSONObject updateWaitroom() {
         JSONObject response;
         try {
@@ -88,6 +42,51 @@ public class Api {
             throw new RuntimeException(e);
         }
         return response;
+    }
+
+    public boolean createGame(String username) throws Exception {
+        JSONObject request = new JSONObject();
+        request.put("command", "createRoom")
+                .put("username", username);
+        JSONObject response = null;
+        try {
+            response = sendRequest(request);
+        } catch (SocketException e) {
+            try {
+                api = new Api("localhost", 8001);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        if (response.getString("status").equals("successful")) return true;
+        throw new Exception(response.getString("status"));
+    }
+
+    public boolean joinGame(String gameID, String username) {
+        JSONObject request = new JSONObject();
+        request.put("command", "joinRoom")
+                .put("gameID", gameID)
+                .put("username", username);
+        JSONObject response = null;
+        try {
+            response = sendRequest(request);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        if (response.getString("status").equals("successful")) return true;
+        return false;
+    }
+
+
+    public JSONObject sendRequest(JSONObject request) throws IOException, ClassNotFoundException {
+        objectOutputStream.writeUTF(request.toString());
+        return new JSONObject(objectInputStream.readUTF());
     }
 
     public boolean isGod() {

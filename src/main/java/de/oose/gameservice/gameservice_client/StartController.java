@@ -24,8 +24,12 @@ public class StartController {
     private Label output_error;
     @FXML
     protected void onCreateGame() {
-        if (api.createGame(input_user_name.getText())) {
-            joinWaitroom();
+        try {
+            if (api.createGame(input_user_name.getText())) {
+                joinWaitroom();
+            }
+        } catch (Exception e) {
+            output_error.setText(e.getMessage());
         }
     }
 
