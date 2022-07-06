@@ -35,8 +35,12 @@ public class StartController {
 
     @FXML
     protected void onJoinGame() {
-        if (api.joinGame(input_gameID.getText(), input_user_name.getText())) {
-            joinWaitroom();
+        try {
+            if (api.joinGame(input_gameID.getText(), input_user_name.getText())) {
+                joinWaitroom();
+            }
+        } catch (Exception e) {
+            output_error.setText(e.getMessage());
         }
     }
 

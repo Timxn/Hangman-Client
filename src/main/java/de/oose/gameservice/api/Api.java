@@ -66,7 +66,7 @@ public class Api {
         throw new Exception(response.getString("status"));
     }
 
-    public boolean joinGame(String gameID, String username) {
+    public boolean joinGame(String gameID, String username) throws Exception {
         JSONObject request = new JSONObject();
         request.put("command", "joinRoom")
                 .put("gameID", gameID)
@@ -80,7 +80,7 @@ public class Api {
             throw new RuntimeException(e);
         }
         if (response.getString("status").equals("successful")) return true;
-        return false;
+        throw new Exception(response.getString("status"));
     }
 
 
