@@ -23,9 +23,7 @@ public class Api {
         try {
             JSONObject request = new JSONObject().put("command", "updateWaiting");
             response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         return response;
@@ -36,9 +34,7 @@ public class Api {
         try {
             JSONObject request = new JSONObject().put("command", "updateGame");
             response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         return response;
@@ -57,14 +53,12 @@ public class Api {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        if (response == null) throw new Exception("no Connection possible");
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
-        if (response.getString("status").equals("successful")) return true;
-        return false;
+        return true;
     }
 
     public boolean joinGame(String gameID, String username) throws Exception {
@@ -75,9 +69,7 @@ public class Api {
         JSONObject response = null;
         try {
             response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
@@ -90,9 +82,7 @@ public class Api {
         try {
             JSONObject request = new JSONObject().put("command", "startGame");
             response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
@@ -106,9 +96,7 @@ public class Api {
         try {
             JSONObject request = new JSONObject().put("command", "isGod");
             response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
@@ -121,9 +109,7 @@ public class Api {
                 .put("command", "setWord");
         try {
             response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         throw new Exception(response.getString("status"));
@@ -134,9 +120,7 @@ public class Api {
         try {
             JSONObject request = new JSONObject().put("command", "isStarted");
             response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
@@ -148,9 +132,7 @@ public class Api {
         JSONObject request = new JSONObject().put("command", "hasWord");
         try {
             response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
@@ -162,9 +144,7 @@ public class Api {
         try {
             JSONObject request = new JSONObject().put("command", "getMistakes");
             response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         return response.getInt("mistakesMade");
@@ -177,9 +157,7 @@ public class Api {
                     .put("command", "getMistakes")
                     .put("character", text);
             response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception("Someone couldnt guess aint it? (server error)");
@@ -191,9 +169,7 @@ public class Api {
         JSONObject request = new JSONObject().put("command", "close");
         try {
             response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
