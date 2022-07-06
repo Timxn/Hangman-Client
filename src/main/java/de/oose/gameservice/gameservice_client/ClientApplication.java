@@ -27,7 +27,11 @@ public class ClientApplication extends Application {
     }
 
     private void close() {
-        api.close();
+        try {
+            api.close();
+        } catch (Exception e) {
+            System.err.println("sucks to be you");
+        }
         exit(0);
     }
 

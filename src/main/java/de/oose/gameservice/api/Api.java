@@ -126,7 +126,6 @@ public class Api {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        if (response.getBoolean("isGod")) return;
         throw new Exception(response.getString("status"));
     }
 
@@ -144,23 +143,7 @@ public class Api {
         if (response.getBoolean("isStarted")) return true;
         return false;
     }
-    public int getFails() {
-        JSONObject response;
-        try {
-            JSONObject request = new JSONObject().put("command", "updateGame");
-            response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return response.getInt("mistakesMade");
-    }
-
-    public void close() {
-    }
-
-    public boolean hasWord() {
+    public boolean hasWord() throws Exception {
         JSONObject response;
         JSONObject request = new JSONObject().put("command", "hasWord");
         try {
@@ -170,14 +153,53 @@ public class Api {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
         return response.getBoolean("hasWord");
+    }
+
+    public int getFails() {
+        JSONObject response;
+        try {
+            JSONObject request = new JSONObject().put("command", "getMistakes");
+            response = sendRequest(request);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return response.getInt("mistakesMade");
+    }
+
+    public void guessLetter(String text) throws Exception {
+        JSONObject response;
+        try {
+            JSONObject request = new JSONObject()
+                    .put("command", "getMistakes")
+                    .put("character", text);
+            response = sendRequest(request);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        if (!(response.getString("status").equals("successful"))) throw new Exception("Someone couldnt guess aint it? (server error)");
+
+    }
+
+    public void close() throws Exception {
+        JSONObject response;
+        JSONObject request = new JSONObject().put("command", "close");
+        try {
+            response = sendRequest(request);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public JSONObject sendRequest(JSONObject request) throws IOException, ClassNotFoundException {
         objectOutputStream.writeUTF(request.toString());
         return new JSONObject(objectInputStream.readUTF());
-    }
-
-    public void guessLetter(String text) {
     }
 }
