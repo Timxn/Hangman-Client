@@ -62,8 +62,9 @@ public class Api {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
         if (response.getString("status").equals("successful")) return true;
-        throw new Exception(response.getString("status"));
+        return false;
     }
 
     public boolean joinGame(String gameID, String username) throws Exception {
@@ -79,8 +80,9 @@ public class Api {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
         if (response.getString("status").equals("successful")) return true;
-        throw new Exception(response.getString("status"));
+        return false;
     }
 
     public boolean startGame() throws Exception {
@@ -93,8 +95,9 @@ public class Api {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
         if (response.getString("status").equals("successful")) return true;
-        throw new Exception(response.getString("status"));
+        return false;
     }
 
 
@@ -108,9 +111,9 @@ public class Api {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        if (response.getBoolean("isGod")) return true;
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
-        return true;
+        if (response.getBoolean("isGod")) return true;
+        return false;
     }
     public void setWord(String text) throws Exception {
         JSONObject response;
@@ -127,7 +130,7 @@ public class Api {
         throw new Exception(response.getString("status"));
     }
 
-    public boolean isStarted() {
+    public boolean isStarted() throws Exception {
         JSONObject response;
         try {
             JSONObject request = new JSONObject().put("command", "isStarted");
@@ -137,6 +140,7 @@ public class Api {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
         if (response.getBoolean("isStarted")) return true;
         return false;
     }
