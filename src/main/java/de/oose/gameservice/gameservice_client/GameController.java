@@ -66,13 +66,14 @@ public class GameController {
                     return;
                 }
             } else if (!api.isStarted() && !api.isGod()) {
-                ClientApplication.api.setWord("Wartma");
+                output_word.setText("Wartma");
                 button_game_character.setDisable(true);
             } else if (api.isStarted() && api.isGod()) {
-                ClientApplication.api.setWord("Wartma");
+                output_word.setText("Wartma");
                 button_game_character.setDisable(true);
             } else if (api.isStarted() && !api.isGod()) {
-                ClientApplication.api.setWord(input_game_character.getText());
+                button_game_character.setDisable(false);
+                ClientApplication.api.guessLetter(input_game_character.getText());
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
