@@ -109,7 +109,8 @@ public class Api {
             throw new RuntimeException(e);
         }
         if (response.getBoolean("isGod")) return true;
-        throw new Exception(response.getString("status"));
+        if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
+        return true;
     }
     public boolean isStarted() {
         JSONObject response;
