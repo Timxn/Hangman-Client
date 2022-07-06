@@ -18,7 +18,7 @@ public class Api {
         this.objectInputStream = new DataInputStream(socket.getInputStream()); //FUCKS SMTHING UP
     }
 
-    public JSONObject updateWaitroom() {
+    public JSONObject updateWaitroom() throws Exception {
         JSONObject response;
         try {
             JSONObject request = new JSONObject().put("command", "updateWaiting");
@@ -26,6 +26,7 @@ public class Api {
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
         return response;
     }
 
