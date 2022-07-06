@@ -1,22 +1,19 @@
 package de.oose.gameservice.gameservice_client;
 
-import de.oose.gameservice.api.Api;
-import de.oose.gameservice.api.Message;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ResizeFeaturesBase;
-import org.json.JSONArray;
+import javafx.util.Duration;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
@@ -40,7 +37,6 @@ public class WaitroomController {
 
     private void enterGame() {
         try {
-            ClientApplication.housekeeper.interrupt();
             FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Game.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1002, 699);
 //            Scene scene = new Scene(fxmlLoader.load(), ClientApplication.DIMENSIONS_WIDTH_HEIGHT[0], ClientApplication.DIMENSIONS_WIDTH_HEIGHT[1]);
@@ -61,25 +57,8 @@ public class WaitroomController {
 
     public void initialize() {
         output_player.setItems(FXCollections.observableArrayList());
-        try {
-            ClientApplication.housekeeper = new Thread(() -> {
-                while (true) {
-
-                    if (Thread.interrupted()) {
-                        // We've been interrupted: no more crunching.
-                        return;
-                    }
-
-                    try {
-                        this.update();
-                        Thread.sleep(600);
-                    } catch (InterruptedException e) {
-                    }
-                }
-            });
-            ClientApplication.housekeeper.start();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Timeline tl = new Timeline(new KeyFrame(Duration.millis(16.67), e ->update()));
+        tl.setCycleCount(Timeline.INDEFINITE);
+        tl.play();
     }
 }

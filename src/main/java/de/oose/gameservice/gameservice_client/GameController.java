@@ -1,20 +1,20 @@
 package de.oose.gameservice.gameservice_client;
 
-import de.oose.gameservice.api.Api;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.io.IOException;
+import javafx.util.Duration;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class GameController {
-    Thread housekeeper;
-
     @FXML
     ImageView output_hangman;
     @FXML
@@ -24,7 +24,9 @@ public class GameController {
     @FXML
     Button button_game_character;
     private void update() {
-        switch (api.getFails()) {
+        JSONObject updateGame = api.updateGame();
+
+        switch (updateGame.getInt("mistakesMade")) {
             case 1 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/01.jpg"));
             case 2 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/02.jpg"));
             case 3 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/03.jpg"));
@@ -35,15 +37,42 @@ public class GameController {
             case 8 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/08.jpg"));
             case 9 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/09.jpg"));
         }
-        // case 0 -> bild.setImage(new Image(HelloApplication.class.getResource("") + "media/1.png"));
 
+        JSONArray triedChars = (JSONArray) updateGame.get("characterList");
+        String triedCharsString = "";
+        for (int i = 0; i < triedChars.length(); i++) {
+            triedCharsString = triedCharsString + " " + triedChars.get(i);
+        }
+        JSONArray triedWord = (JSONArray) updateGame.get("word");
+        String triedWordString = "";
+        for (int i = 0; i < triedWord.length(); i++) {
+            triedWordString = triedWordString + " " + triedWord.get(i);
+        }
+
+        output_current_player.setText(updateGame.getString("whoseTurnIsIt"));
+        output_already_guessed.setText(triedCharsString);
+        output_word.setText(triedWordString);
     }
 
     public void onGuess() {
         char character = input_game_character.getCharacters().charAt(0);
-        if (ClientApplication.api.isGod() && !ClientApplication.api.isStarted()) {
+        if (!api.isStarted() && api.isGod()) {
             ClientApplication.api.setWord(input_game_character.getText());
             ClientApplication.api.startGame();
+        } else if (!api.isStarted() && !api.isGod()) {
+            ClientApplication.api.setWord("Wartma");
+            button_game_character.setDisable(true);
+        } else if (api.isStarted() && api.isGod()) {
+            ClientApplication.api.setWord("Wartma");
+            button_game_character.setDisable(true);
+        } else if (api.isStarted() && !api.isGod()) {
+            ClientApplication.api.setWord(input_game_character.getText());
         }
+
+    }
+    public void initialize() {
+        Timeline tl = new Timeline(new KeyFrame(Duration.millis(60), e ->update()));
+        tl.setCycleCount(Timeline.INDEFINITE);
+        tl.play();
     }
 }
