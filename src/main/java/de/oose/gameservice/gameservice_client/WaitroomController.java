@@ -25,7 +25,13 @@ public class WaitroomController {
     @FXML
     ListView output_player;
     private void update() {
-        JSONObject response = api.updateWaitroom();
+        JSONObject response = null;
+        try {
+            response = api.updateWaitroom();
+        } catch (Exception e) {
+            output_error.setText(e.getMessage());
+            return;
+        }
         if (response.getBoolean("isStarted")) enterGame();
         output_gameID.setText(response.getString("gameID"));
         ArrayList<String> tmp = new ArrayList<>();
@@ -44,16 +50,13 @@ public class WaitroomController {
             ClientApplication.stage.setScene(scene);
             ClientApplication.stage.show();
         } catch (IOException e) {
-            System.err.println(e.getMessage());
-            output_error.setText("DAFUQ JOINWAITROOM()");
+            output_error.setText(e.getMessage());
         }
     }
 
     public void startGame() {
         try {
-            if (api.startGame()) {
-                enterGame();
-            }
+            api.startGame();
         } catch (Exception e) {
             output_error.setText(e.getMessage());
         }
