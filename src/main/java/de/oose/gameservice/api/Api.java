@@ -83,10 +83,18 @@ public class Api {
         throw new Exception(response.getString("status"));
     }
 
-
-    public JSONObject sendRequest(JSONObject request) throws IOException, ClassNotFoundException {
-        objectOutputStream.writeUTF(request.toString());
-        return new JSONObject(objectInputStream.readUTF());
+    public boolean startGame() throws Exception {
+        JSONObject response;
+        try {
+            JSONObject request = new JSONObject().put("command", "startGame");
+            response = sendRequest(request);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        if (response.getString("status").equals("successful")) return true;
+        throw new Exception(response.getString("status"));
     }
 
     public boolean isGod() {

@@ -50,8 +50,12 @@ public class WaitroomController {
     }
 
     public void startGame() {
-        if (api.startGame()) {
-            enterGame();
+        try {
+            if (api.startGame()) {
+                enterGame();
+            }
+        } catch (Exception e) {
+            output_error.setText(e.getMessage());
         }
     }
 
