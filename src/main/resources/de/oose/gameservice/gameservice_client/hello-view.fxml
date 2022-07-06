@@ -33,12 +33,12 @@
             <Font size="18.0" />
         </font>
     </Label>
-    <Button fx:id="button_create_game" alignment="CENTER" layoutX="402.0" layoutY="408.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #151616;" text="Create Game" textFill="#a1a1a1">
+    <Button onAction="#onCreateGame" fx:id="button_create_game" alignment="CENTER" layoutX="402.0" layoutY="408.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #151616;" text="Create Game" textFill="#a1a1a1">
         <font>
             <Font name="MS Outlook" size="18.0" />
         </font>
     </Button>
-    <Button fx:id="button_join_game" alignment="CENTER" layoutX="607.0" layoutY="408.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #151616;" text="Join Game" textFill="#a1a1a1">
+    <Button onAction="#onJoinGame" fx:id="button_join_game" alignment="CENTER" layoutX="607.0" layoutY="408.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #151616;" text="Join Game" textFill="#a1a1a1">
         <font>
             <Font name="MS Outlook" size="18.0" />
         </font>
