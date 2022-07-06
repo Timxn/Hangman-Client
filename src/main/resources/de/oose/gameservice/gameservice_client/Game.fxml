@@ -11,7 +11,7 @@
 <AnchorPane fx:controller="de.oose.gameservice.gameservice_client.GameController" prefHeight="699.0" prefWidth="1002.0" style="-fx-background-color: #476d74;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <ImageView fx:id="output_hangman" fitHeight="528.0" fitWidth="658.0" layoutX="173.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="output_current_player" layoutX="14.0" prefHeight="96.0" prefWidth="190.0" textFill="WHITE" wrapText="true">
+      <Label fx:id="output_current_player" text="SDAASDSAD" layoutX="14.0" prefHeight="96.0" prefWidth="190.0" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MS Outlook" size="18.0" />
          </font>
@@ -34,7 +34,7 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </TextField>
-      <Button fx:id="button_game_character" alignment="CENTER" layoutX="520.0" layoutY="582.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="126.0" style="-fx-background-color: #131d1f;" text="Guess!" textFill="WHITE">
+      <Button onAction="#onGuess" fx:id="button_game_character" alignment="CENTER" layoutX="520.0" layoutY="582.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="126.0" style="-fx-background-color: #131d1f;" text="Guess!" textFill="WHITE">
          <font>
             <Font name="MS Outlook" size="18.0" />
          </font>
