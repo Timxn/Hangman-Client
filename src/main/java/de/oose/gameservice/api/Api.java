@@ -155,6 +155,9 @@ public class Api {
         }
     }
 
+    public void close() {
+    }
+
     public boolean hasWord() {
         JSONObject response;
         JSONObject request = new JSONObject().put("command", "hasWord");
