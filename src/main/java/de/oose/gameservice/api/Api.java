@@ -97,7 +97,8 @@ public class Api {
         throw new Exception(response.getString("status"));
     }
 
-    public boolean isGod() {
+
+    public boolean isGod() throws Exception {
         JSONObject response;
         try {
             JSONObject request = new JSONObject().put("command", "isGod");
@@ -108,7 +109,7 @@ public class Api {
             throw new RuntimeException(e);
         }
         if (response.getBoolean("isGod")) return true;
-        return false;
+        throw new Exception(response.getString("status"));
     }
     public boolean isStarted() {
         JSONObject response;
@@ -136,20 +137,6 @@ public class Api {
         }
         return response.getInt("mistakesMade");
     }
-    public boolean startGame() {
-        JSONObject response;
-        try {
-            JSONObject request = new JSONObject().put("command", "startGame");
-            response = sendRequest(request);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        if (response.getString("status").equals("successful")) return true;
-        return false;
-    }
-
     public void setWord(String text) {
         JSONObject request = new JSONObject().put("word", text)
                         .put("command", "setWord");
@@ -176,5 +163,10 @@ public class Api {
             throw new RuntimeException(e);
         }
         return response.getBoolean("hasWord");
+    }
+
+    public JSONObject sendRequest(JSONObject request) throws IOException, ClassNotFoundException {
+        objectOutputStream.writeUTF(request.toString());
+        return new JSONObject(objectInputStream.readUTF());
     }
 }

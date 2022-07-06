@@ -56,22 +56,27 @@ public class GameController {
 
     public void onGuess() {
         char character = input_game_character.getCharacters().charAt(0);
-        if (!api.isStarted() && api.isGod()) {
-            ClientApplication.api.setWord(input_game_character.getText());
-            try {
-                ClientApplication.api.startGame();
-            } catch (Exception e) {
-                output_error.setText(e.getMessage());
-                return;
+        try {
+            if (!api.isStarted() && api.isGod()) {
+                ClientApplication.api.setWord(input_game_character.getText());
+                try {
+                    ClientApplication.api.startGame();
+                } catch (Exception e) {
+                    output_error.setText(e.getMessage());
+                    return;
+                }
+            } else if (!api.isStarted() && !api.isGod()) {
+                ClientApplication.api.setWord("Wartma");
+                button_game_character.setDisable(true);
+            } else if (api.isStarted() && api.isGod()) {
+                ClientApplication.api.setWord("Wartma");
+                button_game_character.setDisable(true);
+            } else if (api.isStarted() && !api.isGod()) {
+                ClientApplication.api.setWord(input_game_character.getText());
             }
-        } else if (!api.isStarted() && !api.isGod()) {
-            ClientApplication.api.setWord("Wartma");
-            button_game_character.setDisable(true);
-        } else if (api.isStarted() && api.isGod()) {
-            ClientApplication.api.setWord("Wartma");
-            button_game_character.setDisable(true);
-        } else if (api.isStarted() && !api.isGod()) {
-            ClientApplication.api.setWord(input_game_character.getText());
+        } catch (Exception e) {
+            output_error.setText(e.getMessage());
+            return;
         }
 
     }
