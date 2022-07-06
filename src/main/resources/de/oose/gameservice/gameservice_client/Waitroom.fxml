@@ -20,7 +20,7 @@
          </font></Label>
     <AnchorPane layoutX="446.0" layoutY="30.0" minHeight="0.0" minWidth="0.0" prefHeight="525.0" prefWidth="404.0" style="-fx-background-color: #131d1f;">
          <children>
-            <Button fx:id="start_game" layoutX="80.0" layoutY="357.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="251.0" style="-fx-background-color: #476d74;" text="Start Game!" textFill="WHITE">
+            <Button onAction="#startGame" fx:id="start_game" layoutX="80.0" layoutY="357.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="251.0" style="-fx-background-color: #476d74;" text="Start Game!" textFill="WHITE">
                <font>
                   <Font size="30.0" />
                </font>
