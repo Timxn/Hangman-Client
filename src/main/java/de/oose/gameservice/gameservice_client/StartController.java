@@ -25,7 +25,7 @@ public class StartController {
     @FXML
     protected void onCreateGame() {
         try {
-            if (api.createGame(input_user_name.getText())) {
+            if (!input_user_name.getText().isBlank() && api.createGame(input_user_name.getText())) {
                 joinWaitroom();
             }
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class StartController {
     @FXML
     protected void onJoinGame() {
         try {
-            if (api.joinGame(input_gameID.getText(), input_user_name.getText())) {
+            if (!input_user_name.getText().isBlank() && api.joinGame(input_gameID.getText(), input_user_name.getText())) {
                 joinWaitroom();
             }
         } catch (Exception e) {
