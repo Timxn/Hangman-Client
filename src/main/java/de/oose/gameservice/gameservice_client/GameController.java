@@ -82,7 +82,8 @@ public class GameController {
                 }
 
                 isTurn = updateGame.getString("whoseTurnIsIt");
-                output_current_player.setText(isTurn);
+                if (isTurn.equals("ERROR")) output_error.setText("No ones Turn");
+                else output_current_player.setText(isTurn);
                 output_already_guessed.setText(triedCharsString);
                 output_word.setText(updateGame.getString("word"));
             }
