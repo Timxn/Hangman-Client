@@ -13,7 +13,7 @@
             <Font name="MS Outlook" size="18.0" />
          </font>
       </Label>
-      <ListView fx:id="output_scoreboard" layoutX="14.0" layoutY="51.0" opacity="0.57" prefHeight="463.0" prefWidth="251.0" style="-fx-background-color: #476d74;" />
+<!--      <ListView fx:id="output_scoreboard" layoutX="14.0" layoutY="51.0" opacity="0.57" prefHeight="463.0" prefWidth="251.0" style="-fx-background-color: #476d74;" />-->
       <AnchorPane layoutX="380.0" layoutY="128.0" prefHeight="167.0" prefWidth="188.0" style="-fx-background-color: #7bbcc9;">
          <children>
             <Label fx:id="output_result" alignment="CENTER" layoutX="31.0" layoutY="31.0" prefHeight="113.0" prefWidth="131.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
@@ -23,7 +23,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button fx:id="buttom_restart" layoutX="391.0" layoutY="356.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="166.0" style="-fx-background-color: #7bbcc9;" text="RESTART" textFill="WHITE">
+      <Button fx:id="button_restart" layoutX="391.0" layoutY="356.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="166.0" style="-fx-background-color: #7bbcc9;" text="RESTART" textFill="WHITE">
          <font>
             <Font size="30.0" />
          </font>
