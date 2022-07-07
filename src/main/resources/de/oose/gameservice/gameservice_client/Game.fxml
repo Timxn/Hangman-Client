@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.GameController" prefHeight="699.0" prefWidth="1002.0" style="-fx-background-color: #476d74;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.GameController" prefHeight="699.0" prefWidth="1002.0" style="-fx-background-color: #476d74;-fx-text-fill: white" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <ImageView fx:id="output_hangman" fitHeight="528.0" fitWidth="658.0" layoutX="173.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="output_current_player" text="SDAASDSAD" layoutX="14.0" prefHeight="96.0" prefWidth="190.0" textFill="WHITE" wrapText="true">
+      <Label fx:id="output_current_player" text="" layoutX="14.0" prefHeight="96.0" prefWidth="190.0" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MS Outlook" size="18.0" />
          </font>
@@ -39,7 +39,7 @@
             <Font name="MS Outlook" size="18.0" />
          </font>
       </Button>
-      <Label fx:id="output_error" layoutX="307.0" layoutY="656.0" prefHeight="34.0" prefWidth="390.0" textFill="#ff7373">
+      <Label fx:id="output_error" layoutX="0" layoutY="656.0" prefHeight="34.0" prefWidth="1000" textFill="#ff7373" alignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
