@@ -15,6 +15,9 @@ import org.json.JSONObject;
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class GameController {
+    boolean isGod, hasWord;
+    String isTurn;
+    Timeline tl;
     @FXML
     ImageView output_hangman;
     @FXML
@@ -24,56 +27,57 @@ public class GameController {
     @FXML
     Button button_game_character;
     private void update() {
-        JSONObject updateGame = api.updateGame();
+        try {
+            if (isGod) {
+                button_game_character.setText("enter word!");
+            } else {
+                input_game_character.setDisable(true);
+                button_game_character.setDisable(true);
+            }
+            if (!hasWord) {
+                hasWord = api.hasWord();
+            } else {
+                JSONObject updateGame = api.updateGame();
 
-        switch (updateGame.getInt("mistakesMade")) {
-            case 1 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/01.jpg"));
-            case 2 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/02.jpg"));
-            case 3 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/03.jpg"));
-            case 4 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/04.jpg"));
-            case 5 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/05.jpg"));
-            case 6 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/06.jpg"));
-            case 7 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/07.jpg"));
-            case 8 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/08.jpg"));
-            case 9 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/09.jpg"));
-        }
+//        if (!api.isStarted()) {
+//            if (api.isGod())
+//        }
 
-        JSONArray triedChars = (JSONArray) updateGame.get("characterList");
-        String triedCharsString = "";
-        for (int i = 0; i < triedChars.length(); i++) {
-            triedCharsString = triedCharsString + " " + triedChars.get(i);
-        }
-        JSONArray triedWord = (JSONArray) updateGame.get("word");
-        String triedWordString = "";
-        for (int i = 0; i < triedWord.length(); i++) {
-            triedWordString = triedWordString + " " + triedWord.get(i);
-        }
+                switch (updateGame.getInt("mistakesMade")) {
+                    case 1 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/01.jpg"));
+                    case 2 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/02.jpg"));
+                    case 3 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/03.jpg"));
+                    case 4 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/04.jpg"));
+                    case 5 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/05.jpg"));
+                    case 6 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/06.jpg"));
+                    case 7 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/07.jpg"));
+                    case 8 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/08.jpg"));
+                    case 9 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/09.jpg"));
+                }
 
-        output_current_player.setText(updateGame.getString("whoseTurnIsIt"));
-        output_already_guessed.setText(triedCharsString);
-        output_word.setText(triedWordString);
+                JSONArray triedChars = (JSONArray) updateGame.get("characterList");
+                String triedCharsString = "";
+                for (int i = 0; i < triedChars.length(); i++) {
+                    triedCharsString = triedCharsString + " " + triedChars.get(i);
+                }
+
+                isTurn = updateGame.getString("whoseTurnIsIt");
+                output_current_player.setText(isTurn);
+                output_already_guessed.setText(triedCharsString);
+                output_word.setText(updateGame.getString("word"));
+            }
+        } catch (Exception e) {
+            output_error.setText(e.getMessage());
+        }
     }
 
     public void onGuess() {
-        char character = input_game_character.getCharacters().charAt(0);
         try {
-            if (!api.isStarted() && api.isGod()) {
-                ClientApplication.api.setWord(input_game_character.getText());
-                try {
-                    ClientApplication.api.startGame();
-                } catch (Exception e) {
-                    output_error.setText(e.getMessage());
-                    return;
-                }
-            } else if (!api.isStarted() && !api.isGod()) {
-                output_word.setText("Wartma");
-                button_game_character.setDisable(true);
-            } else if (api.isStarted() && api.isGod()) {
-                output_word.setText("Wartma");
-                button_game_character.setDisable(true);
-            } else if (api.isStarted() && !api.isGod()) {
-                button_game_character.setDisable(false);
-                ClientApplication.api.guessLetter(input_game_character.getText());
+            if (isGod) {
+                    api.setWord(input_game_character.getText());
+                    button_game_character.setDisable(true);
+            } else if (isTurn.equals(api.username)){
+                api.guessLetter(input_game_character.getText());
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
@@ -82,8 +86,13 @@ public class GameController {
 
     }
     public void initialize() {
-        Timeline tl = new Timeline(new KeyFrame(Duration.millis(60), e ->update()));
+        tl = new Timeline(new KeyFrame(Duration.seconds(1), e ->update()));
         tl.setCycleCount(Timeline.INDEFINITE);
         tl.play();
+        try {
+            isGod = api.isGod();
+        } catch (Exception e) {
+            output_error.setText(e.getMessage());
+        }
     }
 }
