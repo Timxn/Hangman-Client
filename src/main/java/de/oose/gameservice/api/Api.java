@@ -9,6 +9,7 @@ import org.json.*;
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class Api {
+    public String username;
     private Socket socket;
     private DataOutputStream objectOutputStream;
     private DataInputStream objectInputStream;
@@ -59,6 +60,7 @@ public class Api {
         }
         if (response == null) throw new Exception("no Connection possible");
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
+        this.username = username;
         return true;
     }
 
@@ -74,7 +76,10 @@ public class Api {
             throw new RuntimeException(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
-        if (response.getString("status").equals("successful")) return true;
+        if (response.getString("status").equals("successful")) {
+            this.username = username;
+            return true;
+        }
         return false;
     }
 
