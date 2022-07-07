@@ -10,6 +10,7 @@ import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class Api {
     public String username;
+    public boolean won = false;
     private Socket socket;
     private DataOutputStream objectOutputStream;
     private DataInputStream objectInputStream;
@@ -169,7 +170,6 @@ public class Api {
         if (!(response.getString("status").equals("successful"))) throw new Exception("Someone couldnt guess aint it? (server error)");
 
     }
-
     public void close() throws Exception {
         JSONObject response;
         JSONObject request = new JSONObject().put("command", "close");
