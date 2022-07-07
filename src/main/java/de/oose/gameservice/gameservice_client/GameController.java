@@ -3,6 +3,8 @@ package de.oose.gameservice.gameservice_client;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -12,11 +14,13 @@ import javafx.util.Duration;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class GameController {
     boolean isGod, hasWord;
-    String isTurn;
+    String isTurn = "";
     Timeline tl;
     @FXML
     ImageView output_hangman;
@@ -28,20 +32,26 @@ public class GameController {
     Button button_game_character;
     private void update() {
         try {
-            if (isGod) {
-                button_game_character.setText("enter word!");
-            } else {
-                input_game_character.setDisable(true);
-                button_game_character.setDisable(true);
-            }
             if (!hasWord) {
+                if (isGod) {
+                    button_game_character.setText("enter word!");
+                } else {
+                    input_game_character.setDisable(true);
+                    button_game_character.setDisable(true);
+                }
                 hasWord = api.hasWord();
             } else {
-                JSONObject updateGame = api.updateGame();
+                if (isGod) {
+                    input_game_character.setDisable(true);
+                    button_game_character.setDisable(true);
+                } else {
+                    input_game_character.setDisable(false);
+                    button_game_character.setDisable(false);
+                }
+                if (isTurn.equals(api.username)) button_game_character.setDisable(false);
+                else button_game_character.setDisable(true);
 
-//        if (!api.isStarted()) {
-//            if (api.isGod())
-//        }
+                JSONObject updateGame = api.updateGame();
 
                 switch (updateGame.getInt("mistakesMade")) {
                     case 1 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/01.jpg"));
@@ -52,7 +62,17 @@ public class GameController {
                     case 6 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/06.jpg"));
                     case 7 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/07.jpg"));
                     case 8 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/08.jpg"));
-                    case 9 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/09.jpg"));
+                    case 9 -> {
+                        output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/09.jpg"));
+//                        wait(1000);
+                        if (isGod) api.won = true;
+                        enterAfterGame();
+                    }
+                }
+
+                if (updateGame.getBoolean("wordIsGuessed")) {
+                    if (!isGod) api.won = true;
+                    enterAfterGame();
                 }
 
                 JSONArray triedChars = (JSONArray) updateGame.get("characterList");
@@ -71,6 +91,20 @@ public class GameController {
         }
     }
 
+    private void enterAfterGame() {
+        try {
+            tl.stop();
+            FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("AfterGame.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 712.0, 522.0);
+//            Scene scene = new Scene(fxmlLoader.load(), ClientApplication.DIMENSIONS_WIDTH_HEIGHT[0], ClientApplication.DIMENSIONS_WIDTH_HEIGHT[1]);
+            ClientApplication.stage.setTitle("HANG YOURSELF!");
+            ClientApplication.stage.setScene(scene);
+            ClientApplication.stage.show();
+        } catch (IOException e) {
+            output_error.setText(e.getMessage());
+        }
+    }
+
     public void onGuess() {
         try {
             if (isGod) {
@@ -78,6 +112,8 @@ public class GameController {
                     button_game_character.setDisable(true);
             } else if (isTurn.equals(api.username)){
                 api.guessLetter(input_game_character.getText());
+            } else {
+                output_error.setText("Not your turn!");
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
