@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class WaitroomController {
+    Timeline tl;
     @FXML
     Label output_gameID, output_error;
     @FXML
@@ -43,6 +44,7 @@ public class WaitroomController {
 
     private void enterGame() {
         try {
+            tl.stop();
             FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Game.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1002, 699);
 //            Scene scene = new Scene(fxmlLoader.load(), ClientApplication.DIMENSIONS_WIDTH_HEIGHT[0], ClientApplication.DIMENSIONS_WIDTH_HEIGHT[1]);
@@ -64,7 +66,7 @@ public class WaitroomController {
 
     public void initialize() {
         output_player.setItems(FXCollections.observableArrayList());
-        Timeline tl = new Timeline(new KeyFrame(Duration.millis(16.67), e ->update()));
+        tl = new Timeline(new KeyFrame(Duration.millis(16.67), e ->update()));
         tl.setCycleCount(Timeline.INDEFINITE);
         tl.play();
     }
