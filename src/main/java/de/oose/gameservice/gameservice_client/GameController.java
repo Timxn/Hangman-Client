@@ -128,6 +128,7 @@ public class GameController {
         tl.play();
         try {
             isGod = api.isGod();
+            if (isGod) input_game_character.setOnKeyReleased(null);
         } catch (Exception e) {
             output_error.setText(e.getMessage());
         }
