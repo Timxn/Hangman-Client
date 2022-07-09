@@ -30,6 +30,7 @@ public class Api {
             throw new RuntimeException(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
+        gameid = response.getString("gameID");
         return response;
     }
 
@@ -195,7 +196,8 @@ public class Api {
             throw new RuntimeException(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception("Could not leave match, please contact god!");
-
+        this.username = null;
+        this.gameid = null;
     }
     public void close() throws Exception {
         JSONObject response;
