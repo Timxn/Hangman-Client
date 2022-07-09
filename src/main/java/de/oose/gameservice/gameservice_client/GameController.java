@@ -132,4 +132,12 @@ public class GameController {
             output_error.setText(e.getMessage());
         }
     }
+
+    public void limitInputToOneChar() {
+        if(!(input_game_character.getLength() ==0)) {
+            input_game_character.setText(String.valueOf(input_game_character.getText().charAt(input_game_character.getLength() - 1)));
+            input_game_character.positionCaret(input_game_character.getLength());
+        }
+
+    }
 }
