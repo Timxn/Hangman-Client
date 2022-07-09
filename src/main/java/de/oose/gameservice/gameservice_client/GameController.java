@@ -1,5 +1,6 @@
 package de.oose.gameservice.gameservice_client;
 
+import de.oose.gameservice.gameservice_client.util.InputValidation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -107,10 +108,10 @@ public class GameController {
     public void onGuess() {
         try {
             if (isGod) {
-                    api.setWord(input_game_character.getText());
-                    button_game_character.setDisable(true);
+                api.setWord(InputValidation.validateOnlyAlphabeticalChars(input_game_character.getText()));
+                button_game_character.setDisable(true);
             } else if (isTurn.toLowerCase().equals(api.username.toLowerCase())){
-                api.guessLetter(input_game_character.getText());
+                api.guessLetter(String.valueOf(InputValidation.getFirstCharAsLowerCaseAlphabeticalChar(input_game_character.getText())));
                 input_game_character.setText(null);
             } else {
                 output_error.setText("Not your turn!");
