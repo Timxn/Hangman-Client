@@ -41,6 +41,8 @@ public class GameController {
                 }
                 hasWord = api.hasWord();
             } else {
+                JSONObject updateGame = api.updateGame();
+                isTurn = updateGame.getString("whoseTurnIsIt");
                 if (isGod) {
                     input_game_character.setDisable(true);
                     button_game_character.setDisable(true);
@@ -48,10 +50,10 @@ public class GameController {
                     input_game_character.setDisable(false);
                     button_game_character.setDisable(false);
                 }
-                if (isTurn.equals(api.username)) button_game_character.setDisable(false);
+                if (isTurn.toLowerCase().equals(api.username.toLowerCase())) button_game_character.setDisable(false);
                 else button_game_character.setDisable(true);
 
-                JSONObject updateGame = api.updateGame();
+
 
                 switch (updateGame.getInt("mistakesMade")) {
                     case 1 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/01.jpg"));
@@ -75,17 +77,13 @@ public class GameController {
                     enterAfterGame();
                 }
 
-                JSONArray triedChars = (JSONArray) updateGame.get("characterList");
-                String triedCharsString = "";
-                for (int i = 0; i < triedChars.length(); i++) {
-                    triedCharsString = triedCharsString + " " + triedChars.get(i);
-                }
+                output_word.setText(updateGame.getString("word"));
 
-                isTurn = updateGame.getString("whoseTurnIsIt");
+                String triedChars = updateGame.getString("characterList");
+
                 if (isTurn.equals("ERROR")) output_error.setText("No ones Turn");
                 else output_current_player.setText(isTurn);
-                output_already_guessed.setText(triedCharsString);
-                output_word.setText(updateGame.getString("word"));
+                output_already_guessed.setText(triedChars);
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
@@ -111,8 +109,9 @@ public class GameController {
             if (isGod) {
                     api.setWord(input_game_character.getText());
                     button_game_character.setDisable(true);
-            } else if (isTurn.equals(api.username)){
+            } else if (isTurn.toLowerCase().equals(api.username.toLowerCase())){
                 api.guessLetter(input_game_character.getText());
+                input_game_character.setText(null);
             } else {
                 output_error.setText("Not your turn!");
             }
