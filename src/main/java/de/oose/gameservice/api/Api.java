@@ -10,6 +10,7 @@ import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class Api {
     public String username;
+    public String gameid;
     public boolean won = false;
     private Socket socket;
     private DataOutputStream objectOutputStream;
@@ -204,6 +205,17 @@ public class Api {
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getGameID() {
+        JSONObject response;
+        JSONObject request = new JSONObject().put("command", "getGameID");
+        try {
+            response = sendRequest(request);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return response.getString("gameid");
     }
 
     public JSONObject sendRequest(JSONObject request) throws IOException, ClassNotFoundException {
