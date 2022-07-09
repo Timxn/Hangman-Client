@@ -1,20 +1,27 @@
 package de.oose.gameservice.gameservice_client;
 
-import de.oose.gameservice.api.Api;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class GameController {
-    Thread housekeeper;
-
+    boolean isGod, hasWord;
+    String isTurn = "";
+    Timeline tl;
     @FXML
     ImageView output_hangman;
     @FXML
@@ -24,26 +31,104 @@ public class GameController {
     @FXML
     Button button_game_character;
     private void update() {
-        switch (api.getFails()) {
-            case 1 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/01.jpg"));
-            case 2 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/02.jpg"));
-            case 3 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/03.jpg"));
-            case 4 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/04.jpg"));
-            case 5 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/05.jpg"));
-            case 6 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/06.jpg"));
-            case 7 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/07.jpg"));
-            case 8 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/08.jpg"));
-            case 9 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/09.jpg"));
-        }
-        // case 0 -> bild.setImage(new Image(HelloApplication.class.getResource("") + "media/1.png"));
+        try {
+            if (!hasWord) {
+                if (isGod) {
+                    button_game_character.setText("enter word!");
+                } else {
+                    input_game_character.setDisable(true);
+                    button_game_character.setDisable(true);
+                }
+                hasWord = api.hasWord();
+            } else {
+                JSONObject updateGame = api.updateGame();
+                isTurn = updateGame.getString("whoseTurnIsIt");
+                if (isGod) {
+                    input_game_character.setDisable(true);
+                    button_game_character.setDisable(true);
+                } else {
+                    input_game_character.setDisable(false);
+                    button_game_character.setDisable(false);
+                }
+                if (isTurn.toLowerCase().equals(api.username.toLowerCase())) button_game_character.setDisable(false);
+                else button_game_character.setDisable(true);
 
+
+
+                switch (updateGame.getInt("mistakesMade")) {
+                    case 1 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/01.jpg"));
+                    case 2 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/02.jpg"));
+                    case 3 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/03.jpg"));
+                    case 4 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/04.jpg"));
+                    case 5 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/05.jpg"));
+                    case 6 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/06.jpg"));
+                    case 7 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/07.jpg"));
+                    case 8 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/08.jpg"));
+                    case 9 -> {
+                        output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/09.jpg"));
+//                        wait(1000);
+                        if (isGod) api.won = true;
+                        enterAfterGame();
+                    }
+                }
+
+                if (updateGame.getBoolean("wordIsGuessed")) {
+                    if (!isGod) api.won = true;
+                    enterAfterGame();
+                }
+
+                output_word.setText(updateGame.getString("word"));
+
+                String triedChars = updateGame.getString("characterList");
+
+                if (isTurn.equals("ERROR")) output_error.setText("No ones Turn");
+                else output_current_player.setText(isTurn);
+                output_already_guessed.setText(triedChars);
+            }
+        } catch (Exception e) {
+            output_error.setText(e.getMessage());
+        }
+    }
+
+    private void enterAfterGame() {
+        try {
+            tl.stop();
+            FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("AfterGame.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 712.0, 522.0);
+//            Scene scene = new Scene(fxmlLoader.load(), ClientApplication.DIMENSIONS_WIDTH_HEIGHT[0], ClientApplication.DIMENSIONS_WIDTH_HEIGHT[1]);
+            ClientApplication.stage.setTitle("HANG YOURSELF!");
+            ClientApplication.stage.setScene(scene);
+            ClientApplication.stage.show();
+        } catch (IOException e) {
+            output_error.setText(e.getMessage());
+        }
     }
 
     public void onGuess() {
-        char character = input_game_character.getCharacters().charAt(0);
-        if (ClientApplication.api.isGod() && !ClientApplication.api.isStarted()) {
-            ClientApplication.api.setWord(input_game_character.getText());
-            ClientApplication.api.startGame();
+        try {
+            if (isGod) {
+                    api.setWord(input_game_character.getText());
+                    button_game_character.setDisable(true);
+            } else if (isTurn.toLowerCase().equals(api.username.toLowerCase())){
+                api.guessLetter(input_game_character.getText());
+                input_game_character.setText(null);
+            } else {
+                output_error.setText("Not your turn!");
+            }
+        } catch (Exception e) {
+            output_error.setText(e.getMessage());
+            return;
+        }
+
+    }
+    public void initialize() {
+        tl = new Timeline(new KeyFrame(Duration.seconds(1), e ->update()));
+        tl.setCycleCount(Timeline.INDEFINITE);
+        tl.play();
+        try {
+            isGod = api.isGod();
+        } catch (Exception e) {
+            output_error.setText(e.getMessage());
         }
     }
 }

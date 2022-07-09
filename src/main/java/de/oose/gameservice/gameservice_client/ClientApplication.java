@@ -9,10 +9,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static java.lang.System.exit;
+
 public class ClientApplication extends Application {
     public static Api api;
     public static Stage stage;
-    public static Thread housekeeper;
     public static final int[] DIMENSIONS_WIDTH_HEIGHT = {1186, 498};
 
     @Override
@@ -22,8 +23,17 @@ public class ClientApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), DIMENSIONS_WIDTH_HEIGHT[0], DIMENSIONS_WIDTH_HEIGHT[1]);
         this.stage.setTitle("HANG YOURSELF!");
         this.stage.setScene(scene);
-        this.stage.setOnCloseRequest(e -> housekeeper.interrupt());        // shutdowns the javaVM on programmClose
         this.stage.show();
+        this.stage.setOnCloseRequest(e -> close());
+    }
+
+    private void close() {
+        try {
+            api.close();
+        } catch (Exception e) {
+            System.err.println("sucks to be you");
+        }
+        exit(0);
     }
 
     public static void main(String[] args) {

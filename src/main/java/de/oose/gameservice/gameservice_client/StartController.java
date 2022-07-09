@@ -1,13 +1,15 @@
 package de.oose.gameservice.gameservice_client;
 
 import de.oose.gameservice.api.Api;
-import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -22,21 +24,28 @@ public class StartController {
     private Label output_error;
     @FXML
     protected void onCreateGame() {
-        if (api.createGame(input_user_name.getText())) {
-            joinWaitroom();
+        try {
+            if (!input_user_name.getText().isBlank() && api.createGame(input_user_name.getText())) {
+                joinWaitroom();
+            }
+        } catch (Exception e) {
+            output_error.setText(e.getMessage());
         }
     }
 
     @FXML
     protected void onJoinGame() {
-        if (api.joinGame(input_gameID.getText(), input_user_name.getText())) {
-            joinWaitroom();
+        try {
+            if (!input_user_name.getText().isBlank() && api.joinGame(input_gameID.getText(), input_user_name.getText())) {
+                joinWaitroom();
+            }
+        } catch (Exception e) {
+            output_error.setText(e.getMessage());
         }
     }
 
     private void joinWaitroom() {
         try {
-            ClientApplication.housekeeper.interrupt();
             FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Waitroom.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 864, 569);
 //            Scene scene = new Scene(fxmlLoader.load(), ClientApplication.DIMENSIONS_WIDTH_HEIGHT[0], ClientApplication.DIMENSIONS_WIDTH_HEIGHT[1]);
@@ -49,41 +58,18 @@ public class StartController {
     }
 
     public void update() {
+        if (api == null) {
+            try {
+                api = new Api("localhost", 8001);
+            } catch (IOException e) {
+                output_error.setText("Mach ma Server an");
+            }
+        }
     }
 
     public void initialize() {
-        try {
-            ClientApplication.housekeeper = new Thread(() -> {
-                while (api == null) {
-
-                    if (Thread.interrupted()) {
-                        // We've been interrupted: no more crunching.
-                        return;
-                    }
-
-                    try {
-                        api = new Api("localhost", 8001);
-                    } catch (IOException e) {
-                        output_error.setText("Mach ma Server an");
-                    }
-                }
-                while (true) {
-
-                    if (Thread.interrupted()) {
-                        // We've been interrupted: no more crunching.
-                        return;
-                    }
-
-                    this.update();
-                    try {
-                        Thread.sleep(600);
-                    } catch (InterruptedException e) {
-                    }
-                }
-            });
-            ClientApplication.housekeeper.start();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Timeline tl = new Timeline(new KeyFrame(Duration.millis(60), e ->update()));
+        tl.setCycleCount(Timeline.INDEFINITE);
+        tl.play();
     }
 }
