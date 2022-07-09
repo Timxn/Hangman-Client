@@ -24,6 +24,7 @@ public class ClientApplication extends Application {
         this.stage.setTitle("HANG YOURSELF!");
         this.stage.setScene(scene);
         this.stage.show();
+        this.stage.setOnCloseRequest(e -> close());
     }
 
     private void close() {
