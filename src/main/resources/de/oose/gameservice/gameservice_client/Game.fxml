@@ -26,7 +26,7 @@
             <Font name="MS Outlook" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="input_game_character" alignment="CENTER" layoutX="353.0" layoutY="582.0" prefHeight="59.0" prefWidth="126.0" promptText="Guess" style="-fx-background-color: #131d1f;">
+      <TextField fx:id="input_game_character" alignment="CENTER" layoutX="353.0" layoutY="582.0" prefHeight="59.0" onAction="#onGuess" prefWidth="126.0" promptText="Guess" style="-fx-background-color: #131d1f;">
          <font>
             <Font name="MS Outlook" size="18.0" />
          </font>
