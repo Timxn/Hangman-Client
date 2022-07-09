@@ -10,6 +10,7 @@ import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class Api {
     public String username;
+    public String gameid;
     public boolean won = false;
     private Socket socket;
     private DataOutputStream objectOutputStream;
@@ -170,6 +171,32 @@ public class Api {
         if (!(response.getString("status").equals("successful"))) throw new Exception("Someone couldnt guess aint it? (server error)");
 
     }
+
+
+    public String getWinner() throws Exception {
+        JSONObject response;
+        try {
+            JSONObject request = new JSONObject()
+                    .put("command", "getWinner");
+            response = sendRequest(request);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        if (!(response.getString("status").equals("successful"))) throw new Exception("Could not leave match, please contact god!");
+        return response.getString("winner");
+    }
+    public void leaveGame() throws Exception {
+        JSONObject response;
+        try {
+            JSONObject request = new JSONObject()
+                    .put("command", "quitGame");
+            response = sendRequest(request);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        if (!(response.getString("status").equals("successful"))) throw new Exception("Could not leave match, please contact god!");
+
+    }
     public void close() throws Exception {
         JSONObject response;
         JSONObject request = new JSONObject().put("command", "close");
@@ -178,6 +205,17 @@ public class Api {
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getGameID() {
+        JSONObject response;
+        JSONObject request = new JSONObject().put("command", "getGameID");
+        try {
+            response = sendRequest(request);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return response.getString("gameid");
     }
 
     public JSONObject sendRequest(JSONObject request) throws IOException, ClassNotFoundException {
