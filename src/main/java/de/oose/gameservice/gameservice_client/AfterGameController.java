@@ -37,7 +37,8 @@ public class AfterGameController {
             ClientApplication.api.startGame();
 
         } catch (Exception e) {
-            output_result.setText(e.getMessage());
+            // refactor
+            output_winner.setText(e.getMessage());
         }
     }
     public void quit() {
@@ -51,6 +52,7 @@ public class AfterGameController {
             ClientApplication.stage.setScene(scene);
             ClientApplication.stage.show();
         } catch (Exception e) {
+            // refactor
             output_winner.setText(e.getMessage());
         }
     }
