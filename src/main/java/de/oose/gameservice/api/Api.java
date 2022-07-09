@@ -161,7 +161,7 @@ public class Api {
         JSONObject response;
         try {
             JSONObject request = new JSONObject()
-                    .put("command", "getMistakes")
+                    .put("command", "guess")
                     .put("character", text);
             response = sendRequest(request);
         } catch (IOException | ClassNotFoundException e) {
