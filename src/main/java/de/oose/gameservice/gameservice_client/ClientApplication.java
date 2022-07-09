@@ -30,10 +30,10 @@ public class ClientApplication extends Application {
     private void close() {
         try {
             api.close();
+            exit(0);
         } catch (Exception e) {
             System.err.println("sucks to be you");
         }
-        exit(0);
     }
 
     public static void main(String[] args) {
