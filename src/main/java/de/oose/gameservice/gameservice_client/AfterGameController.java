@@ -15,7 +15,7 @@ import static java.lang.System.out;
 public class AfterGameController {
     Timeline tl;
     @FXML
-    Label output_result;
+    Label output_result, output_winner,output_gameid, output_error;
     @FXML
     Button button_restart, button_quit;
     private void update() {
@@ -29,7 +29,7 @@ public class AfterGameController {
                 ClientApplication.stage.show();
             }
         } catch (Exception e) {
-            output_result.setText(e.getMessage());
+            output_error.setText(e.getMessage());
         }
     }
     public void restart() {
@@ -37,27 +37,33 @@ public class AfterGameController {
             ClientApplication.api.startGame();
 
         } catch (Exception e) {
-            output_result.setText(e.getMessage());
+            // refactor
+            output_error.setText(e.getMessage());
         }
     }
     public void quit() {
         try {
-            ClientApplication.api.close();
+            ClientApplication.api.leaveGame();
 
             // refactor this later
             tl.stop();
-            FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Game.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1002, 699);
+            FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("hello-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1186, 498);
             ClientApplication.stage.setScene(scene);
             ClientApplication.stage.show();
         } catch (Exception e) {
-            output_result.setText(e.getMessage());
+            // refactor
+            output_winner.setText(e.getMessage());
         }
-        exit(0);
     }
     public void initialize() {
+        output_gameid.setText("The GameID is: " + ClientApplication.api.gameid);
         if (ClientApplication.api.won) output_result.setText("You won");
         else output_result.setText("You lost");
+        try {
+            output_winner.setText("The winner of this round is: " + ClientApplication.api.getWinner());
+        } catch (Exception e) {
+        }
         tl = new Timeline(new KeyFrame(Duration.millis(500), e ->update()));
         tl.setCycleCount(Timeline.INDEFINITE);
         tl.play();
