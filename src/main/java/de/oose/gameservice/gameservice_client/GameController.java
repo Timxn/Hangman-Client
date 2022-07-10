@@ -33,8 +33,8 @@ public class GameController {
     Button button_game_character;
     private void update() {
         try {
-
             if (!api.isStarted()) {
+                tl.stop();
                 FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Waitroom.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 864, 569);
                 ClientApplication.stage.setScene(scene);
