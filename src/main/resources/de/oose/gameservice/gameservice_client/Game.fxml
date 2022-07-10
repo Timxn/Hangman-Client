@@ -16,7 +16,7 @@
             <Font name="MS Outlook" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="99.0" text="is playing" textFill="WHITE">
+      <Label fx:id="info_isPlaying" layoutX="14.0" layoutY="99.0" text="" textFill="WHITE">
          <font>
             <Font name="MS Outlook" size="16.0" />
          </font>
