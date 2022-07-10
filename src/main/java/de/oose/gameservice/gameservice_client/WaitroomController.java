@@ -1,5 +1,6 @@
 package de.oose.gameservice.gameservice_client;
 
+import de.oose.gameservice.gameservice_client.util.JavaFXHelper;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -44,13 +45,7 @@ public class WaitroomController {
 
     private void enterGame() {
         try {
-            tl.stop();
-            FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Game.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1002, 699);
-//            Scene scene = new Scene(fxmlLoader.load(), ClientApplication.DIMENSIONS_WIDTH_HEIGHT[0], ClientApplication.DIMENSIONS_WIDTH_HEIGHT[1]);
-            ClientApplication.stage.setTitle("HANG YOURSELF!");
-            ClientApplication.stage.setScene(scene);
-            ClientApplication.stage.show();
+            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Game.fxml", 1002, 699);
         } catch (IOException e) {
             output_error.setText(e.getMessage());
         }
@@ -59,13 +54,7 @@ public class WaitroomController {
     public void quit() {
         try {
             ClientApplication.api.leaveGame();
-
-            // refactor this later
-            tl.stop();
-            FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("hello-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1186, 498);
-            ClientApplication.stage.setScene(scene);
-            ClientApplication.stage.show();
+            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "hello-view.fxml", 1176, 498);
         } catch (Exception e) {
             // refactor
             output_error.setText(e.getMessage());

@@ -1,6 +1,7 @@
 package de.oose.gameservice.gameservice_client;
 
 import de.oose.gameservice.gameservice_client.util.InputValidation;
+import de.oose.gameservice.gameservice_client.util.JavaFXHelper;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -34,11 +35,7 @@ public class GameController {
     private void update() {
         try {
             if (!api.isStarted()) {
-                tl.stop();
-                FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Waitroom.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 864, 569);
-                ClientApplication.stage.setScene(scene);
-                ClientApplication.stage.show();
+                JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Waitroom.fxml", 864, 569);
             }
             if (!hasWord) {
                 if (isGod) {
@@ -62,8 +59,6 @@ public class GameController {
                 }
                 if (isTurn.toLowerCase().equals(api.username.toLowerCase())) button_game_character.setDisable(false);
                 else button_game_character.setDisable(true);
-
-
 
                 switch (updateGame.getInt("mistakesMade")) {
                     case 1 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/01.jpg"));
@@ -100,13 +95,7 @@ public class GameController {
 
     private void enterAfterGame() {
         try {
-            tl.stop();
-            FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("AfterGame.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 712.0, 522.0);
-//            Scene scene = new Scene(fxmlLoader.load(), ClientApplication.DIMENSIONS_WIDTH_HEIGHT[0], ClientApplication.DIMENSIONS_WIDTH_HEIGHT[1]);
-            ClientApplication.stage.setTitle("HANG YOURSELF!");
-            ClientApplication.stage.setScene(scene);
-            ClientApplication.stage.show();
+            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "AfterGame.fxml", 712, 522);
         } catch (IOException e) {
             output_error.setText(e.getMessage());
         }

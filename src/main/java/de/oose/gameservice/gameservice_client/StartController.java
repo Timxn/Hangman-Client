@@ -1,6 +1,7 @@
 package de.oose.gameservice.gameservice_client;
 
 import de.oose.gameservice.api.Api;
+import de.oose.gameservice.gameservice_client.util.JavaFXHelper;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class StartController {
+    Timeline tl;
     @FXML
     private Button button_create_game, button_join_game;
     @FXML
@@ -46,12 +48,7 @@ public class StartController {
 
     private void joinWaitroom() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Waitroom.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 864, 569);
-//            Scene scene = new Scene(fxmlLoader.load(), ClientApplication.DIMENSIONS_WIDTH_HEIGHT[0], ClientApplication.DIMENSIONS_WIDTH_HEIGHT[1]);
-            ClientApplication.stage.setTitle("HANG YOURSELF!");
-            ClientApplication.stage.setScene(scene);
-            ClientApplication.stage.show();
+            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Waitroom.fxml", 864, 569);
         } catch (IOException e) {
             output_error.setText("DAFUQ JOINWAITROOM()");
         }
@@ -68,7 +65,7 @@ public class StartController {
     }
 
     public void initialize() {
-        Timeline tl = new Timeline(new KeyFrame(Duration.millis(60), e ->update()));
+        tl = new Timeline(new KeyFrame(Duration.millis(60), e ->update()));
         tl.setCycleCount(Timeline.INDEFINITE);
         tl.play();
     }
