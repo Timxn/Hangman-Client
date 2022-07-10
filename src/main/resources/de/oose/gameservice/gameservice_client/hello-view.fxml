@@ -23,7 +23,7 @@
             <Cursor fx:constant="TEXT" />
         </cursor>
     </TextField>
-    <TextField fx:id="input_gameID" alignment="CENTER" layoutX="489.0" layoutY="289.0" prefHeight="34.0" prefWidth="205.0" promptText="Game ID" style="-fx-background-color: #151616;-fx-text-fill: white">
+    <TextField fx:id="input_gameID" alignment="CENTER" layoutX="489.0" layoutY="289.0" prefHeight="34.0" prefWidth="205.0" promptText="Game ID" onKeyReleased="#limitInputToFourChar" style="-fx-background-color: #151616;-fx-text-fill: white">
         <font>
             <Font name="MS Outlook" size="18.0" />
         </font>

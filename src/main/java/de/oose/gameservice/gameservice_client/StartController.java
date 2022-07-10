@@ -72,4 +72,11 @@ public class StartController {
         tl.setCycleCount(Timeline.INDEFINITE);
         tl.play();
     }
+
+    public void limitInputToFourChar() {
+        if(!(input_gameID.getLength() < 5)) {
+            input_gameID.setText(String.valueOf(input_gameID.getText().substring(0,input_gameID.getLength() - 1)));
+            input_gameID.positionCaret(input_gameID.getLength());
+        }
+    }
 }
