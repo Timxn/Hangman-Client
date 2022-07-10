@@ -9,13 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-import static java.lang.System.exit;
-import static java.lang.System.out;
-
 public class AfterGameController {
     Timeline tl;
     @FXML
-    Label output_result, output_winner,output_gameid, output_error;
+    Label output_result, output_winner, output_gameID, output_error;
     @FXML
     Button button_restart, button_quit;
     private void update() {
@@ -57,13 +54,15 @@ public class AfterGameController {
         }
     }
     public void initialize() {
-        output_gameid.setText("The GameID is: " + ClientApplication.api.gameid);
-        if (ClientApplication.api.won) output_result.setText("You won");
-        else output_result.setText("You lost");
+        output_gameID.setText("The GameID is: " + ClientApplication.api.gameid);
         try {
+            if ((ClientApplication.api.getWinner()).equalsIgnoreCase(ClientApplication.api.username)) output_result.setText("You won");
+            else output_result.setText("You lost");
             output_winner.setText("The winner of this round is: " + ClientApplication.api.getWinner());
         } catch (Exception e) {
+            output_error.setText(e.getMessage());
         }
+
         tl = new Timeline(new KeyFrame(Duration.millis(500), e ->update()));
         tl.setCycleCount(Timeline.INDEFINITE);
         tl.play();
