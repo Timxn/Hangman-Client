@@ -1,5 +1,6 @@
 package de.oose.gameservice.gameservice_client;
 
+import de.oose.gameservice.gameservice_client.util.JavaFXHelper;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -18,12 +19,7 @@ public class AfterGameController {
     private void update() {
         try {
             if (ClientApplication.api.isStarted()) {
-                // refactor this later
-                tl.stop();
-                FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Game.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 1002, 699);
-                ClientApplication.stage.setScene(scene);
-                ClientApplication.stage.show();
+                JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Game.fxml", 1002, 699);
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
@@ -41,16 +37,10 @@ public class AfterGameController {
     public void quit() {
         try {
             ClientApplication.api.leaveGame();
-
-            // refactor this later
-            tl.stop();
-            FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("hello-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1186, 498);
-            ClientApplication.stage.setScene(scene);
-            ClientApplication.stage.show();
+            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "hello-view.fxml", 1176, 498);
         } catch (Exception e) {
             // refactor
-            output_winner.setText(e.getMessage());
+            output_error.setText(e.getMessage());
         }
     }
     public void initialize() {
