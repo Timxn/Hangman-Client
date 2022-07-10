@@ -20,11 +20,8 @@
          </font></Label>
     <AnchorPane layoutX="446.0" layoutY="30.0" minHeight="0.0" minWidth="0.0" prefHeight="525.0" prefWidth="404.0" style="-fx-background-color: #131d1f;">
          <children>
-            <Button onAction="#startGame" fx:id="start_game" layoutX="80.0" layoutY="357.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="251.0" style="-fx-background-color: #476d74;" text="Start Game!" textFill="WHITE">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Button>
+            <Button onAction="#startGame" fx:id="start_game" layoutX="80.0" layoutY="357.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="251.0" style="-fx-background-color: #476d74;-fx-font-size: 30.0;" text="Start Game!" textFill="WHITE" />
+            <Button onAction="#quit" fx:id="quit" layoutX="80.0" layoutY="440.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="251.0" style="-fx-background-color: #476d74;-fx-font-size: 30.0;" text="Back to Menu" textFill="WHITE" />
             <Label fx:id="output_error" alignment="CENTER" layoutX="-50.0" layoutY="501.0" prefHeight="34.0" prefWidth="462.0" textFill="#ff7373">
                <font>
                   <Font size="18.0" />
