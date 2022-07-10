@@ -36,6 +36,7 @@ public class GameController {
             if (!hasWord) {
                 if (isGod) {
                     button_game_character.setText("enter word!");
+                    input_game_character.setPromptText("word");
                 } else {
                     input_game_character.setDisable(true);
                     button_game_character.setDisable(true);
