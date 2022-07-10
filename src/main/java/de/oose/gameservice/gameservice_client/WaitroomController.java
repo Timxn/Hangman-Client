@@ -56,6 +56,22 @@ public class WaitroomController {
         }
     }
 
+    public void quit() {
+        try {
+            ClientApplication.api.leaveGame();
+
+            // refactor this later
+            tl.stop();
+            FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("hello-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1186, 498);
+            ClientApplication.stage.setScene(scene);
+            ClientApplication.stage.show();
+        } catch (Exception e) {
+            // refactor
+            output_error.setText(e.getMessage());
+        }
+    }
+
     public void startGame() {
         try {
             api.startGame();
