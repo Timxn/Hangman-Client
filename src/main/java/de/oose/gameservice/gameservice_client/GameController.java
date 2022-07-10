@@ -26,7 +26,7 @@ public class GameController {
     @FXML
     ImageView output_hangman;
     @FXML
-    Label output_word, output_error, output_already_guessed, output_current_player;
+    Label output_word, output_error, output_already_guessed, output_current_player, info_isPlaying;
     @FXML
     TextField input_game_character;
     @FXML
@@ -43,6 +43,7 @@ public class GameController {
                 }
                 hasWord = api.hasWord();
             } else {
+                info_isPlaying.setText("is playing");
                 JSONObject updateGame = api.updateGame();
                 isTurn = updateGame.getString("whoseTurnIsIt");
                 if (isGod) {
