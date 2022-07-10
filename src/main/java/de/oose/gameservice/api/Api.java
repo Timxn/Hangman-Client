@@ -11,7 +11,6 @@ import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 public class Api {
     public String username;
     public String gameid;
-    public boolean won = false;
     private Socket socket;
     private DataOutputStream objectOutputStream;
     private DataInputStream objectInputStream;

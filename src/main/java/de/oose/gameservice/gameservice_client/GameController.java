@@ -69,13 +69,11 @@ public class GameController {
                     case 9 -> {
                         output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/09.jpg"));
 //                        wait(1000);
-                        if (isGod) api.won = true;
                         enterAfterGame();
                     }
                 }
 
                 if (updateGame.getBoolean("wordIsGuessed")) {
-                    if (!isGod) api.won = true;
                     enterAfterGame();
                 }
 
