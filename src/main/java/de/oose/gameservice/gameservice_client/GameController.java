@@ -33,6 +33,13 @@ public class GameController {
     Button button_game_character;
     private void update() {
         try {
+
+            if (!api.isStarted()) {
+                FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("Waitroom.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 864, 569);
+                ClientApplication.stage.setScene(scene);
+                ClientApplication.stage.show();
+            }
             if (!hasWord) {
                 if (isGod) {
                     button_game_character.setText("enter word!");
