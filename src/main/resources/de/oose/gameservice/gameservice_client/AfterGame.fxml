@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="522.0" prefWidth="712.0" style="-fx-background-color: #131d1f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.oose.gameservice.gameservice_client.AfterGameController">
+<AnchorPane style="-fx-background-color: #131d1f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.oose.gameservice.gameservice_client.AfterGameController">
    <children>
 <!--      <ListView fx:id="output_scoreboard" layoutX="14.0" layoutY="51.0" opacity="0.57" prefHeight="463.0" prefWidth="251.0" style="-fx-background-color: #476d74;" />-->
       <AnchorPane layoutX="380.0" layoutY="128.0" prefHeight="167.0" prefWidth="188.0" style="-fx-background-color: #7bbcc9;">
