@@ -32,7 +32,9 @@ public class GameController {
     Button button_game_character;
     private void update() {
         try {
-            if (!api.isStarted() && api.getWinner() == null) {
+            try {
+                if (!api.isStarted()) api.getWinner();
+            } catch (Exception e) {
                 JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Lobby.fxml", 864, 569);
             }
             if (!hasWord) {
@@ -103,7 +105,7 @@ public class GameController {
             if (isGod) {
                 api.setWord(InputValidation.validateOnlyAlphabeticalChars(input_game_character.getText()));
                 button_game_character.setDisable(true);
-            } else if (isTurn.toLowerCase().equals(api.username.toLowerCase())){
+            } else if (isTurn.equalsIgnoreCase(api.username)){
                 api.guessLetter(String.valueOf(InputValidation.getFirstCharAsLowerCaseAlphabeticalChar(input_game_character.getText())));
                 input_game_character.setText(null);
             } else {
@@ -111,7 +113,6 @@ public class GameController {
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
-            return;
         }
 
     }
