@@ -31,7 +31,7 @@ public class JavaFXHelper {
      * @param height
      * @throws IOException
      */
-    public static void enterPageWithTimeline(Timeline tl, Stage stage, String filename, int width, int height) throws IOException {
+    public static void enterPageWithTimeline(Timeline tl, Stage stage, String filename, double width, double height) throws IOException {
         tl.stop();
         FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource(filename));
         Scene scene = new Scene(fxmlLoader.load(), width, height);
