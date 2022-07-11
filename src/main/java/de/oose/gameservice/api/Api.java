@@ -196,6 +196,23 @@ public class Api {
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
     }
 
+    public void getScoreboard() {
+        JSONObject response;
+        try {
+            JSONObject request = new JSONObject().put("command", "getScoreboard");
+            response = sendRequest(request);
+        } catch (IOException | ClassNotFoundException e) {
+            return;
+        }
+        try {
+            for (Object user:response.getJSONArray("scoreboard").toList()) {
+                System.out.println(user.toString());
+            }
+        } catch (JSONException e) {
+            return;
+        }
+    }
+
     public String getGameID() {
         JSONObject response;
         JSONObject request = new JSONObject().put("command", "getGameID");
