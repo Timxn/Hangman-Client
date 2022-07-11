@@ -5,8 +5,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
-public class WaitroomController {
+public class LobbyController {
     Timeline tl;
     @FXML
     Label output_gameID, output_error;
@@ -29,7 +27,7 @@ public class WaitroomController {
     private void update() {
         JSONObject response = null;
         try {
-            response = api.updateWaitroom();
+            response = api.updateLobby();
         } catch (Exception e) {
             output_error.setText(e.getMessage());
             return;

@@ -5,8 +5,6 @@ import de.oose.gameservice.gameservice_client.util.JavaFXHelper;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -48,7 +46,7 @@ public class StartController {
 
     private void joinWaitroom() {
         try {
-            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Waitroom.fxml", 864, 569);
+            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Lobby.fxml", 864, 569);
         } catch (IOException e) {
             output_error.setText("DAFUQ JOINWAITROOM()");
         }

@@ -16,11 +16,11 @@ public class Api {
     private DataInputStream objectInputStream;
     public Api(String hostname, int port) throws IOException {
         this.socket = new Socket(hostname, port);
-        this.objectOutputStream = new DataOutputStream(socket.getOutputStream()); // (S)
-        this.objectInputStream = new DataInputStream(socket.getInputStream()); //FUCKS SMTHING UP
+        this.objectOutputStream = new DataOutputStream(socket.getOutputStream());
+        this.objectInputStream = new DataInputStream(socket.getInputStream());
     }
 
-    public JSONObject updateWaitroom() throws Exception {
+    public JSONObject updateLobby() throws Exception {
         JSONObject response;
         try {
             JSONObject request = new JSONObject().put("command", "updateWaiting");
@@ -71,7 +71,7 @@ public class Api {
         request.put("command", "joinRoom")
                 .put("gameID", gameID)
                 .put("username", username);
-        JSONObject response = null;
+        JSONObject response;
         try {
             response = sendRequest(request);
         } catch (IOException | ClassNotFoundException e) {
@@ -85,7 +85,7 @@ public class Api {
         return false;
     }
 
-    public boolean startGame() throws Exception {
+    public void startGame() throws Exception {
         JSONObject response;
         try {
             JSONObject request = new JSONObject().put("command", "startGame");
@@ -94,8 +94,6 @@ public class Api {
             throw new RuntimeException(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
-        if (response.getString("status").equals("successful")) return true;
-        return false;
     }
 
 
@@ -147,17 +145,6 @@ public class Api {
         return response.getBoolean("hasWord");
     }
 
-    public int getFails() {
-        JSONObject response;
-        try {
-            JSONObject request = new JSONObject().put("command", "getMistakes");
-            response = sendRequest(request);
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return response.getInt("mistakesMade");
-    }
-
     public void guessLetter(String text) throws Exception {
         JSONObject response;
         try {
@@ -204,8 +191,9 @@ public class Api {
         try {
             response = sendRequest(request);
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new Exception(e);
         }
+        if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
     }
 
     public String getGameID() {
