@@ -18,7 +18,7 @@ public class AfterGameController {
     private void update() {
         try {
             if (ClientApplication.api.isStarted()) {
-                JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Game.fxml", 1002, 699);
+                JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Game.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
@@ -35,7 +35,7 @@ public class AfterGameController {
     public void quit() {
         try {
             ClientApplication.api.leaveGame();
-            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "hello-view.fxml", 1176, 498);
+            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "hello-view.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
         } catch (Exception e) {
             // refactor
             output_error.setText(e.getMessage());

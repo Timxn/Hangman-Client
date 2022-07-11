@@ -70,7 +70,7 @@ public class StartController {
 
     private void joinWaitroom() {
         try {
-            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Lobby.fxml", 864, 569);
+            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Lobby.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
         } catch (IOException e) {
             output_error.setText("Should join waitroom. Something is really broken!");
         }
@@ -120,6 +120,5 @@ public class StartController {
             output_error.setLayoutX(tempWidth / 2 - 360);
             output_error.setLayoutY(tempHeight / 2 + 100);
         }
-
     }
 }

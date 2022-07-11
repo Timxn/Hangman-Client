@@ -34,7 +34,7 @@ public class GameController {
             try {
                 if (!api.isStarted()) api.getWinner();
             } catch (Exception e) {
-                JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Lobby.fxml", 864, 569);
+                JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Lobby.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
             }
             if (!hasWord) {
                 if (isGod) {
@@ -93,7 +93,7 @@ public class GameController {
 
     private void enterAfterGame() {
         try {
-            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "AfterGame.fxml", 712, 522);
+            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "AfterGame.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
         } catch (IOException e) {
             output_error.setText(e.getMessage());
         }
