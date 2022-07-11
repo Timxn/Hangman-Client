@@ -34,8 +34,8 @@ public class GameController {
     Button button_game_character;
     private void update() {
         try {
-            if (!api.isStarted()) {
-                JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Waitroom.fxml", 864, 569);
+            if (!api.isStarted() && api.getWinner() == null) {
+                JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Lobby.fxml", 864, 569);
             }
             if (!hasWord) {
                 if (isGod) {
