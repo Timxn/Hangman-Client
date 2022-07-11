@@ -8,40 +8,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.StartController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="1176.0" style="-fx-background-color: #040707;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-<children>
-    <ImageView fitHeight="582.0" fitWidth="1176.0" layoutX="3.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@images/hangman_1.jpg" />
-        </image>
-    </ImageView>
-    <TextField fx:id="input_user_name" alignment="CENTER" layoutX="489.0" layoutY="249.0" prefHeight="34.0" prefWidth="205.0" promptText="Username" style="-fx-background-color: #151616;-fx-text-fill: white" styleClass="s">
-        <font>
-            <Font name="MS Outlook" size="18.0" />
-        </font>
-        <cursor>
-            <Cursor fx:constant="TEXT" />
-        </cursor>
-    </TextField>
-    <TextField fx:id="input_gameID" alignment="CENTER" layoutX="489.0" layoutY="289.0" prefHeight="34.0" prefWidth="205.0" promptText="Game ID" onKeyReleased="#limitInputToFourChar" style="-fx-background-color: #151616;-fx-text-fill: white">
-        <font>
-            <Font name="MS Outlook" size="18.0" />
-        </font>
-    </TextField>
-    <Label fx:id="output_error" alignment="CENTER" layoutX="325.0" layoutY="460.0" prefHeight="34.0" prefWidth="530.0" textFill="#ff7373">
-        <font>
-            <Font size="18.0" />
-        </font>
-    </Label>
-    <Button onAction="#onCreateGame" fx:id="button_create_game" alignment="CENTER" layoutX="402.0" layoutY="408.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #151616;" text="Create Game" textFill="#a1a1a1">
-        <font>
-            <Font name="MS Outlook" size="18.0" />
-        </font>
-    </Button>
-    <Button onAction="#onJoinGame" fx:id="button_join_game" alignment="CENTER" layoutX="607.0" layoutY="408.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #151616;" text="Join Game" textFill="#a1a1a1">
-        <font>
-            <Font name="MS Outlook" size="18.0" />
-        </font>
-    </Button>
-</children>
+<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.StartController" style="-fx-background-color: #040707;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <Label text="Hangman - Multiplayer" alignment="CENTER" layoutX="325.0" layoutY="150.0" prefHeight="34.0" prefWidth="530.0" textFill="#a1a1a1" style="-fx-font-size: 40"/>
+    <TextField fx:id="input_user_name" alignment="CENTER" layoutX="489.0" layoutY="249.0" prefHeight="34.0" prefWidth="205.0" promptText="Username" style="-fx-background-color: #151616; -fx-text-fill: white"/>
+    <TextField fx:id="input_gameID" alignment="CENTER" layoutX="489.0" layoutY="289.0" prefHeight="34.0" prefWidth="205.0" promptText="Game ID" onKeyReleased="#limitInputToFourChar" style="-fx-background-color: #151616; -fx-text-fill: white"/>
+    <Label fx:id="output_error" alignment="CENTER" layoutX="325.0" layoutY="460.0" prefHeight="34.0" prefWidth="530.0" textFill="#ff7373"/>
+    <Button fx:id="button_create_game" onAction="#onCreateGame" alignment="CENTER" layoutX="402.0" layoutY="380.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #151616;" text="Create Game" textFill="#a1a1a1"/>
+    <Button fx:id="button_join_game" onAction="#onJoinGame" alignment="CENTER" layoutX="607.0" layoutY="380.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #151616;" text="Join Game" textFill="#a1a1a1"/>
 </AnchorPane>
