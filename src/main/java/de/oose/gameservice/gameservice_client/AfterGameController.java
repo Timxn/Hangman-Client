@@ -4,8 +4,7 @@ import de.oose.gameservice.gameservice_client.util.JavaFXHelper;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
@@ -28,7 +27,6 @@ public class AfterGameController {
     public void restart() {
         try {
             ClientApplication.api.startGame();
-
         } catch (Exception e) {
             // refactor
             output_error.setText(e.getMessage());
