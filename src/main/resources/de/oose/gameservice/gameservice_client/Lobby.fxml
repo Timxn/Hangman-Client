@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.WaitroomController" prefHeight="569.0" prefWidth="864.0" style="-fx-background-color: #131d1f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.LobbyController" prefHeight="569.0" prefWidth="864.0" style="-fx-background-color: #131d1f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <Label prefHeight="49.0" prefWidth="153.0" text="Prison Number:" textFill="WHITE">
          <font>
