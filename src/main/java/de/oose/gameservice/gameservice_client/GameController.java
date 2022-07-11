@@ -14,7 +14,6 @@ import javafx.util.Duration;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.security.spec.ECField;
 
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
