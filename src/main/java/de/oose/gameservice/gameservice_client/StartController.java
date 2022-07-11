@@ -18,7 +18,7 @@ import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 public class StartController {
     Timeline tl;
     @FXML
-    private Button button_create_game, button_join_game, button_close_client;
+    private Button button_create_game, button_join_game, button_close_client, button_show_high_score;
     @FXML
     private TextField input_user_name, input_gameID;
     @FXML
