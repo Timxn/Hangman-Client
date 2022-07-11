@@ -18,7 +18,7 @@ public class ClientApplication extends Application {
         ClientApplication.stage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        ClientApplication.stage.setTitle("Multiplayer Hangman");
+        ClientApplication.stage.setTitle("hangman.online - by Timon Stronczek, Justus Pfaue and Bonnie Jo Mayer");
         ClientApplication.stage.setScene(scene);
         ClientApplication.stage.setMinWidth(720);
         ClientApplication.stage.setMinHeight(480);
