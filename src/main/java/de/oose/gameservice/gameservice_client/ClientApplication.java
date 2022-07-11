@@ -20,8 +20,8 @@ public class ClientApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         ClientApplication.stage.setTitle("Multiplayer Hangman");
         ClientApplication.stage.setScene(scene);
-        ClientApplication.stage.setMinWidth(1080);
-        ClientApplication.stage.setMinHeight(720);
+        ClientApplication.stage.setMinWidth(720);
+        ClientApplication.stage.setMinHeight(480);
         ClientApplication.stage.setMaximized(true);
         ClientApplication.stage.show();
         ClientApplication.stage.setOnCloseRequest(e -> close());
