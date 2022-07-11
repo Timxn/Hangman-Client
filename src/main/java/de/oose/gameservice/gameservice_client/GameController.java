@@ -32,6 +32,7 @@ public class GameController {
     Button button_game_character;
     private void update() {
         try {
+            //hello
             try {
                 if (!api.isStarted()) api.getWinner();
             } catch (Exception e) {
