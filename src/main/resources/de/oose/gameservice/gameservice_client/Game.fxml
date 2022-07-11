@@ -1,58 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.GameController" prefHeight="699.0" prefWidth="1002.0" style="-fx-background-color: #476d74;-fx-text-fill: white" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane style="-fx-background-color: #476d74;" fx:controller="de.oose.gameservice.gameservice_client.GameController" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <ImageView fx:id="output_hangman" fitHeight="528.0" fitWidth="658.0" layoutX="173.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="output_current_player" text="" layoutX="14.0" prefHeight="96.0" prefWidth="190.0" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="MS Outlook" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="info_isPlaying" layoutX="14.0" layoutY="99.0" text="" textFill="WHITE">
-         <font>
-            <Font name="MS Outlook" size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="output_word" alignment="CENTER" layoutX="273.0" layoutY="541.0" prefHeight="22.0" prefWidth="456.0" textFill="WHITE">
-         <font>
-            <Font name="MS Outlook" size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="input_game_character" alignment="CENTER" layoutX="353.0" layoutY="582.0" prefHeight="59.0" onKeyReleased="#limitInputToOneChar" onAction="#onGuess" prefWidth="126.0" promptText="Guess" style="-fx-background-color: #131d1f;-fx-text-inner-color: white;">
-         <font>
-            <Font name="MS Outlook" size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
-      </TextField>
-      <Button onAction="#onGuess" fx:id="button_game_character" alignment="CENTER" layoutX="520.0" layoutY="582.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="126.0" style="-fx-background-color: #131d1f;" text="Guess!" textFill="WHITE">
-         <font>
-            <Font name="MS Outlook" size="18.0" />
-         </font>
-      </Button>
-      <Label fx:id="output_error" layoutX="0" layoutY="656.0" prefHeight="34.0" prefWidth="1000" textFill="#ff7373" alignment="CENTER">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="21.0" layoutY="582.0" text="Your mistakes:" textFill="WHITE">
-         <font>
-            <Font name="MS Outlook" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="output_already_guessed" layoutX="14.0" layoutY="603.0" prefHeight="87.0" prefWidth="289.0" textFill="WHITE">
-         <font>
-            <Font name="MS Outlook" size="18.0" />
-         </font>
-      </Label>
+      <Label fx:id="output_current_player" style="-fx-text-fill: white; -fx-font-family: 'MS Outlook'; -fx-font-size: 18;" text="God" layoutX="14.0" prefHeight="96.0" prefWidth="190.0" wrapText="true" />
+      <Label fx:id="info_isPlaying" style="-fx-text-fill: white; -fx-font-family: 'MS Outlook'; -fx-font-size: 18;" layoutX="14.0" layoutY="99.0" text="is setting a word!"/>
+      <Label fx:id="output_word" style="-fx-text-fill: white; -fx-font-family: 'MS Outlook'; -fx-font-size: 18;" alignment="CENTER" layoutX="273.0" layoutY="541.0" prefHeight="22.0" prefWidth="456.0"/>
+      <TextField fx:id="input_game_character" style="-fx-text-fill: grey; -fx-font-family: 'MS Outlook'; -fx-font-size: 18;" alignment="CENTER" layoutX="353.0" layoutY="582.0" prefHeight="59.0" onKeyReleased="#limitInputToOneChar" onAction="#onGuess" prefWidth="126.0" promptText="Guess" />
+      <Button onAction="#onGuess" style="-fx-text-fill: grey; -fx-font-family: 'MS Outlook'; -fx-font-size: 18;" fx:id="button_game_character" alignment="CENTER" layoutX="520.0" layoutY="582.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="126.0" text="Guess!"/>
+      <Label fx:id="output_error" style="-fx-text-fill: red; -fx-font-family: 'MS Outlook'; -fx-font-size: 18;" layoutY="656.0" prefHeight="34.0" prefWidth="1000" alignment="CENTER"/>
+      <Label fx:id="output_already_guessed" style="-fx-text-fill: white; -fx-font-family: 'MS Outlook'; -fx-font-size: 18;" layoutX="14.0" layoutY="603.0" prefHeight="87.0" prefWidth="289.0"/>
    </children>
 </AnchorPane>
