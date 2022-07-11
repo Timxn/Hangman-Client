@@ -5,18 +5,16 @@ import de.oose.gameservice.gameservice_client.util.JavaFXHelper;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.spec.ECField;
 
 import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
@@ -57,8 +55,7 @@ public class GameController {
                     input_game_character.setDisable(false);
                     button_game_character.setDisable(false);
                 }
-                if (isTurn.toLowerCase().equals(api.username.toLowerCase())) button_game_character.setDisable(false);
-                else button_game_character.setDisable(true);
+                button_game_character.setDisable(!isTurn.equalsIgnoreCase(api.username)); // if user it is not the players turn, disable the button to guess
 
                 switch (updateGame.getInt("mistakesMade")) {
                     case 1 -> output_hangman.setImage(new Image(ClientApplication.class.getResource("") + "images/01.jpg"));
