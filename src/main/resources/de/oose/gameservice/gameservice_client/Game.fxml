@@ -10,23 +10,23 @@
 
 <AnchorPane fx:controller="de.oose.gameservice.gameservice_client.GameController" style="-fx-background-color: #476d74;-fx-text-fill: white" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
-      <ImageView fx:id="output_hangman" fitHeight="528.0" fitWidth="658.0" layoutX="173.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="output_current_player" text="" layoutX="14.0" prefHeight="96.0" prefWidth="190.0" textFill="WHITE" wrapText="true">
+      <ImageView fx:id="output_hangman" fitHeight="528.0" fitWidth="658.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="output_current_player" text=""  prefHeight="96.0" prefWidth="190.0" textFill="WHITE" wrapText="true">
          <font>
             <Font name="MS Outlook" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="info_isPlaying" layoutX="14.0" layoutY="99.0" text="" textFill="WHITE">
+      <Label fx:id="info_isPlaying" text="" textFill="WHITE">
          <font>
             <Font name="MS Outlook" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="output_word" alignment="CENTER" layoutX="273.0" layoutY="541.0" prefHeight="22.0" prefWidth="456.0" textFill="WHITE">
+      <Label fx:id="output_word" alignment="CENTER" prefHeight="22.0" prefWidth="456.0" textFill="WHITE">
          <font>
             <Font name="MS Outlook" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="input_game_character" alignment="CENTER" layoutX="353.0" layoutY="582.0" prefHeight="59.0" onKeyReleased="#limitInputToOneChar" onAction="#onGuess" prefWidth="126.0" promptText="Guess" style="-fx-background-color: #131d1f;-fx-text-inner-color: white;">
+      <TextField fx:id="input_game_character" alignment="CENTER" prefHeight="59.0" onKeyReleased="#limitInputToOneChar" onAction="#onGuess" prefWidth="126.0" promptText="Guess" style="-fx-background-color: #131d1f;-fx-text-inner-color: white;">
          <font>
             <Font name="MS Outlook" size="18.0" />
          </font>
@@ -34,22 +34,22 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </TextField>
-      <Button onAction="#onGuess" fx:id="button_game_character" alignment="CENTER" layoutX="520.0" layoutY="582.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="126.0" style="-fx-background-color: #131d1f;" text="Guess!" textFill="WHITE">
+      <Button onAction="#onGuess" fx:id="button_game_character" alignment="CENTER" mnemonicParsing="false" prefHeight="59.0" prefWidth="126.0" style="-fx-background-color: #131d1f;" text="Guess!" textFill="WHITE">
          <font>
             <Font name="MS Outlook" size="18.0" />
          </font>
       </Button>
-      <Label fx:id="output_error" layoutX="0" layoutY="656.0" prefHeight="34.0" prefWidth="1000" textFill="#ff7373" alignment="CENTER">
+      <Label fx:id="output_error" prefHeight="34.0" prefWidth="1000" textFill="#ff7373" alignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="21.0" layoutY="582.0" text="Your mistakes:" textFill="WHITE">
+      <Label text="Your mistakes:" textFill="WHITE">
          <font>
             <Font name="MS Outlook" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="output_already_guessed" layoutX="14.0" layoutY="603.0" prefHeight="87.0" prefWidth="289.0" textFill="WHITE">
+      <Label fx:id="output_already_guessed" prefHeight="87.0" prefWidth="289.0" textFill="WHITE">
          <font>
             <Font name="MS Outlook" size="18.0" />
          </font>
