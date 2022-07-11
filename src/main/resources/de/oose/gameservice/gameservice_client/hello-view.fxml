@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.StartController" style="-fx-background-color: #040707;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.StartController" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="text_hangman" text="[hangman.online]" alignment="CENTER" prefHeight="80" prefWidth="720" textFill="#a1a1a1" style="-fx-font-size: 80"/>
     <TextField fx:id="input_user_name" alignment="CENTER" prefHeight="80" prefWidth="280" promptText="Username" style="-fx-background-color: #151616; -fx-text-fill: white; -fx-font-size: 40"/>
     <TextField fx:id="input_gameID" alignment="CENTER" prefHeight="80" prefWidth="280" promptText="Game ID" onKeyReleased="#limitInputToFourChar" style="-fx-background-color: #151616; -fx-text-fill: white; -fx-font-size: 40"/>
