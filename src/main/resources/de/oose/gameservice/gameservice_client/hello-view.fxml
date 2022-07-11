@@ -4,12 +4,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane fx:controller="de.oose.gameservice.gameservice_client.StartController" style="-fx-background-color: #040707;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="text_hangman" text="Hangman - Multiplayer" alignment="CENTER" textFill="#a1a1a1" style="-fx-font-size: 40"/>
-    <TextField fx:id="input_user_name" alignment="CENTER" prefHeight="34.0" prefWidth="205.0" promptText="Username" style="-fx-background-color: #151616; -fx-text-fill: white"/>
-    <TextField fx:id="input_gameID" alignment="CENTER" prefHeight="34.0" prefWidth="205.0" promptText="Game ID" onKeyReleased="#limitInputToFourChar" style="-fx-background-color: #151616; -fx-text-fill: white"/>
-    <Label fx:id="output_error" alignment="CENTER" prefHeight="34.0" prefWidth="530.0" textFill="#ff7373"/>
-    <Button fx:id="button_create_game" onAction="#onCreateGame" alignment="CENTER" mnemonicParsing="false" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #151616;" text="Create Game" textFill="#a1a1a1"/>
-    <Button fx:id="button_join_game" onAction="#onJoinGame" alignment="CENTER" mnemonicParsing="false" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #151616;" text="Join Game" textFill="#a1a1a1"/>
-    <Button fx:id="button_close_client" onAction="#onJoinGame" alignment="CENTER" mnemonicParsing="false" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #151616;" text="Close Client" textFill="#a1a1a1"/>
-    <Button fx:id="button_show_high_score" onAction="#onJoinGame" alignment="CENTER" mnemonicParsing="false" prefHeight="52.0" prefWidth="174.0" style="-fx-background-color: #151616;" text="Show Highscores" textFill="#a1a1a1"/>
+    <Label fx:id="text_hangman" text="[hangman.online]" alignment="CENTER" prefHeight="80" prefWidth="720" textFill="#a1a1a1" style="-fx-font-size: 80"/>
+    <TextField fx:id="input_user_name" alignment="CENTER" prefHeight="80" prefWidth="280" promptText="Username" style="-fx-background-color: #151616; -fx-text-fill: white; -fx-font-size: 40"/>
+    <TextField fx:id="input_gameID" alignment="CENTER" prefHeight="80" prefWidth="280" promptText="Game ID" onKeyReleased="#limitInputToFourChar" style="-fx-background-color: #151616; -fx-text-fill: white; -fx-font-size: 40"/>
+    <Button fx:id="button_create_game" onAction="#onCreateGame" alignment="CENTER" mnemonicParsing="false" prefHeight="60" prefWidth="130" style="-fx-background-color: #151616;" text="Create Game" textFill="#a1a1a1"/>
+    <Button fx:id="button_join_game" onAction="#onJoinGame" alignment="CENTER" mnemonicParsing="false" prefHeight="60" prefWidth="130" style="-fx-background-color: #151616;" text="Join Game" textFill="#a1a1a1"/>
+    <Button fx:id="button_close_client" onAction="#onClose" alignment="CENTER" mnemonicParsing="false" prefHeight="60" prefWidth="130" style="-fx-background-color: #151616;" text="Close Client" textFill="#a1a1a1"/>
+    <Button fx:id="button_show_high_score" onAction="#onShowHighScore" alignment="CENTER" mnemonicParsing="false" prefHeight="60" prefWidth="130" style="-fx-background-color: #151616;" text="Show Highscores" textFill="#a1a1a1"/>
+    <Label fx:id="output_error" alignment="CENTER" prefHeight="40" prefWidth="720" textFill="#ff7373" style="-fx-font-size: 40"/>
 </AnchorPane>
