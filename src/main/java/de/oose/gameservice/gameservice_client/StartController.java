@@ -5,6 +5,7 @@ import de.oose.gameservice.gameservice_client.util.JavaFXHelper;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -21,7 +22,14 @@ public class StartController {
     @FXML
     private TextField input_user_name, input_gameID;
     @FXML
-    private Label output_error;
+    private Label output_error, text_hangman;
+
+    public void initialize() {
+        tl = new Timeline(new KeyFrame(Duration.millis(60), e ->update()));
+        tl.setCycleCount(Timeline.INDEFINITE);
+        tl.play();
+    }
+
     @FXML
     protected void onCreateGame() {
         try {
@@ -62,16 +70,15 @@ public class StartController {
         }
     }
 
-    public void initialize() {
-        tl = new Timeline(new KeyFrame(Duration.millis(60), e ->update()));
-        tl.setCycleCount(Timeline.INDEFINITE);
-        tl.play();
-    }
-
     public void limitInputToFourChar() {
         if(!(input_gameID.getLength() < 5)) {
             input_gameID.setText(String.valueOf(input_gameID.getText().substring(0,input_gameID.getLength() - 1)));
             input_gameID.positionCaret(input_gameID.getLength());
         }
+    }
+
+    private void updateLayout() {
+        text_hangman.setLayoutX(ClientApplication.stage.getWidth()/2);
+        button_create_game.setLayoutX(ClientApplication.stage.getWidth()/2);
     }
 }
