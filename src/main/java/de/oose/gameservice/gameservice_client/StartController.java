@@ -28,6 +28,7 @@ public class StartController {
         tl = new Timeline(new KeyFrame(Duration.millis(60), e ->update()));
         tl.setCycleCount(Timeline.INDEFINITE);
         tl.play();
+        updateLayout();
     }
 
     @FXML

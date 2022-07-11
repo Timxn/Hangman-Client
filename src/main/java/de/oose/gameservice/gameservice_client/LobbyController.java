@@ -23,9 +23,10 @@ public class LobbyController {
     @FXML
     Button start_game;
     @FXML
-    ListView output_player;
+    ListView<Object> output_player;
     private void update() {
-        JSONObject response = null;
+        updateLayout();
+        JSONObject response;
         try {
             response = api.updateLobby();
         } catch (Exception e) {
@@ -72,5 +73,23 @@ public class LobbyController {
         tl = new Timeline(new KeyFrame(Duration.millis(16.67), e ->update()));
         tl.setCycleCount(Timeline.INDEFINITE);
         tl.play();
+        updateLayout();
+    }
+
+    private double width = 0.0;
+
+    private double height = 0.0;
+
+    private void updateLayout() {
+        double tempWidth = ClientApplication.stage.getWidth();
+        double tempHeight = ClientApplication.stage.getHeight();
+        if (width != tempWidth || height != tempHeight) {
+            width = tempWidth;
+            height = tempHeight;
+
+            output_error.setLayoutX(tempWidth / 2 - 360);
+            output_error.setLayoutY(tempHeight / 2 + 100);
+        }
+
     }
 }
