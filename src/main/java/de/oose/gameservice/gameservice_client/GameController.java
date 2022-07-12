@@ -41,6 +41,9 @@ public class GameController {
                 JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Lobby.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
             }
             if (!hasWord) {
+                output_word.setText("Word pending...");
+                output_already_guessed.setText("Nothing guessed yet...");
+                output_current_player.setText("God is thinking...");
                 if (isGod) {
                     button_game_character.setText("Set Word!");
                     input_game_character.setPromptText("Word");
