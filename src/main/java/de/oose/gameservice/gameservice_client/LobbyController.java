@@ -108,7 +108,7 @@ public class LobbyController {
             quit.setLayoutX(tempWidth / 2 + 10);
             quit.setLayoutY(tempHeight / 2 - 60 + 110);
             output_error.setLayoutX(tempWidth / 2 - 360);
-            output_error.setLayoutY(tempHeight / 2 + 100);
+            output_error.setLayoutY(tempHeight / 2 + 140);
         }
     }
 }

@@ -1,10 +1,122 @@
+.black-bg {
+    -fx-background-color: black;
+}
+
+.white-bg {
+    -fx-background-color: white;
+}
+
+.button-60 {
+    -fx-background-color: #151616;
+    -fx-text-fill: #a1a1a1;
+    -fx-alignment: center;
+    -fx-pref-height: 60;
+    -fx-pref-width: 130;
+}
+
+.button-80 {
+    -fx-background-color: #151616;
+    -fx-text-fill: #a1a1a1;
+    -fx-alignment: center;
+    -fx-font-size: 40;
+    -fx-pref-height: 80;
+    -fx-pref-width: 280;
+}
+
+.error-message {
+    -fx-text-fill: #ff7373;
+    -fx-alignment: center;
+    -fx-font-size: 40;
+    -fx-pref-height: 40;
+    -fx-pref-width: 720;
+}
+
+.input-big {
+    -fx-background-color: #151616;
+    -fx-text-fill: #a1a1a1;
+    -fx-alignment: center;
+    -fx-font-size: 40;
+    -fx-pref-height: 80;
+    -fx-pref-width: 280;
+}
+
+.output-gameid-pink {
+    -fx-text-fill: #FC46AA;
+    -fx-alignment: center;
+    -fx-font-size: 80;
+    -fx-pref-height: 80;
+    -fx-pref-width: 300;
+}
+
+.output-word-purple {
+    -fx-text-fill: #9C46FC;
+    -fx-alignment: center;
+    -fx-font-size: 40;
+    -fx-pref-height: 40;
+    -fx-pref-width: 720;
+}
+
+.text-highscore-pink {
+    -fx-text-fill: #FC46AA;
+    -fx-alignment: center;
+    -fx-font-size: 80;
+    -fx-pref-height: 80;
+    -fx-pref-width: 720;
+}
+
+.output-already-guessed {
+    -fx-text-fill: #151616;
+    -fx-alignment: center;
+    -fx-font-size: 20;
+    -fx-pref-height: 20;
+    -fx-pref-width: 720;
+}
+
+.text-hangman {
+    -fx-text-fill: #a1a1a1;
+    -fx-alignment: center;
+    -fx-font-size: 80;
+    -fx-pref-height: 80;
+    -fx-pref-width: 720;
+}
+
+.text-gameid {
+    -fx-text-fill: #a1a1a1;
+    -fx-alignment: center;
+    -fx-font-size: 30;
+    -fx-pref-height: 30;
+    -fx-pref-width: 300;
+}
+
+.text-players {
+    -fx-text-fill: #a1a1a1;
+    -fx-alignment: center;
+    -fx-font-size: 40;
+    -fx-pref-height: 40;
+    -fx-pref-width: 280;
+}
+
+.text-playing {
+    -fx-text-fill: #151616;
+    -fx-alignment: center;
+    -fx-pref-width: 150;
+}
+
+.list-view {
+    -fx-pref-height: 190;
+    -fx-pref-width: 280;
+    -fx-background-color: #151616;
+    -fx-border-color: transparent;
+}
+
 .list-view .list-cell:even {
-    -fx-background-color: none;
+    -fx-background-color: #151616;
     -fx-text-fill: #a1a1a1;
     -fx-alignment: center;
 }
+
 .list-view .list-cell:odd {
-    -fx-background-color: none;
+    -fx-background-color: #252626;
     -fx-text-fill: #a1a1a1;
     -fx-alignment: center;
 }

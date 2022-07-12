@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class JavaFXHelper {
     /**
@@ -35,7 +36,7 @@ public class JavaFXHelper {
         tl.stop();
         FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource(filename));
         Scene scene = new Scene(fxmlLoader.load(), width, height);
-        scene.getStylesheets().add(ClientApplication.class.getResource("style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(ClientApplication.class.getResource("style.css")).toExternalForm());
         stage.setScene(scene);
         stage.show();
     }

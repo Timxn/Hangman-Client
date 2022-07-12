@@ -1,58 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.GameController" style="-fx-background-color: #476d74;-fx-text-fill: white" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
-   <children>
-      <ImageView fx:id="output_hangman" fitHeight="528.0" fitWidth="658.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="output_current_player" text=""  prefHeight="96.0" prefWidth="190.0" textFill="WHITE" wrapText="true">
-         <font>
-            <Font name="MS Outlook" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="info_isPlaying" text="" textFill="WHITE">
-         <font>
-            <Font name="MS Outlook" size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="output_word" alignment="CENTER" prefHeight="22.0" prefWidth="456.0" textFill="WHITE">
-         <font>
-            <Font name="MS Outlook" size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="input_game_character" alignment="CENTER" prefHeight="59.0" onKeyReleased="#limitInputToOneChar" onAction="#onGuess" prefWidth="126.0" promptText="Guess" style="-fx-background-color: #131d1f;-fx-text-inner-color: white;">
-         <font>
-            <Font name="MS Outlook" size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
-      </TextField>
-      <Button onAction="#onGuess" fx:id="button_game_character" alignment="CENTER" mnemonicParsing="false" prefHeight="59.0" prefWidth="126.0" style="-fx-background-color: #131d1f;" text="Guess!" textFill="WHITE">
-         <font>
-            <Font name="MS Outlook" size="18.0" />
-         </font>
-      </Button>
-      <Label fx:id="output_error" prefHeight="34.0" prefWidth="1000" textFill="#ff7373" alignment="CENTER">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label text="Your mistakes:" textFill="WHITE">
-         <font>
-            <Font name="MS Outlook" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="output_already_guessed" prefHeight="87.0" prefWidth="289.0" textFill="WHITE">
-         <font>
-            <Font name="MS Outlook" size="18.0" />
-         </font>
-      </Label>
-   </children>
+<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.GameController" styleClass="white-bg" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
+   <Label fx:id="output_word" styleClass="output-word-purple"/>
+   <Label fx:id="output_current_player" styleClass="text-playing"/>
+   <TextField fx:id="input_game_character" onKeyReleased="#limitInputToOneChar" onAction="#onGuess" promptText="Letter" styleClass="button-60"/>
+   <Button fx:id="button_game_character" onAction="#onGuess" mnemonicParsing="false" text="Guess Letter!" styleClass="button-60"/>
+   <Label fx:id="output_already_guessed" styleClass="output-already-guessed"/>
+   <Label fx:id="output_error" styleClass="error-message"/>
+   <ImageView fx:id="output_hangman" pickOnBounds="true" fitHeight="300" preserveRatio="true"/>
 </AnchorPane>
