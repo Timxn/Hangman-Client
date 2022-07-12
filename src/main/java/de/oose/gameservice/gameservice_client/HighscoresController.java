@@ -17,9 +17,9 @@ import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 public class HighscoresController {
     Timeline tl;
     @FXML
-    Label output_error;
+    Label text_highscore, output_error;
     @FXML
-    Button back;
+    Button button_back;
     @FXML
     ListView<Object> output_highscore;
     private void update() {
@@ -62,12 +62,14 @@ public class HighscoresController {
         if (width != tempWidth || height != tempHeight) {
             width = tempWidth;
             height = tempHeight;
+            text_highscore.setLayoutX(tempWidth / 2 - 360);
+            text_highscore.setLayoutY(tempHeight / 2 - 220);
             output_highscore.setLayoutX(tempWidth / 2 - 140 - 150);
             output_highscore.setLayoutY(tempHeight / 2 - 50);
-            back.setLayoutX(tempWidth / 2 + 10);
-            back.setLayoutY(tempHeight / 2 - 60 + 10);
+            button_back.setLayoutX(tempWidth / 2 + 10);
+            button_back.setLayoutY(tempHeight / 2 - 60 + 10);
             output_error.setLayoutX(tempWidth / 2 - 360);
-            output_error.setLayoutY(tempHeight / 2 + 100);
+            output_error.setLayoutY(tempHeight / 2 + 140);
         }
     }
 }
