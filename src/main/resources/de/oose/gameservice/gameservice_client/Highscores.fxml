@@ -5,9 +5,9 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.HighscoresController" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
-    <Label fx:id="output_gameID" prefHeight="80" prefWidth="300" text="Highscores" alignment="CENTER" textFill="#FC46AA" style="-fx-font-size: 80"/>
-    <ListView fx:id="output_highscore" prefHeight="185" prefWidth="280" style="-fx-background-color: #151616; -fx-text-fill: #a1a1a1;"/>
-    <Button onAction="#back" fx:id="back" alignment="CENTER" mnemonicParsing="false" prefHeight="80" prefWidth="280" style="-fx-background-color: #151616;-fx-font-size: 40.0;" text="Leave Game" textFill="#a1a1a1" />
-    <Label fx:id="output_error" alignment="CENTER" prefHeight="34.0" prefWidth="462.0" textFill="#ff7373"/>
+<AnchorPane fx:controller="de.oose.gameservice.gameservice_client.HighscoresController" styleClass="black-bg" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
+    <Label fx:id="text_highscore"  text="Highscores" styleClass="text-highscore-pink"/>
+    <ListView fx:id="output_highscore" styleClass="list-view"/>
+    <Button onAction="#back" fx:id="button_back" mnemonicParsing="false" text="Leave Game" styleClass="button-80"/>
+    <Label fx:id="output_error" styleClass="error-message"/>
 </AnchorPane>
