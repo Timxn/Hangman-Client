@@ -35,6 +35,7 @@ public class JavaFXHelper {
         tl.stop();
         FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource(filename));
         Scene scene = new Scene(fxmlLoader.load(), width, height);
+        scene.getStylesheets().add(ClientApplication.class.getResource("style.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }

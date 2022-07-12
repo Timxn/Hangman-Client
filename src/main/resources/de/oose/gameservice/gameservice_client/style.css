@@ -1,0 +1,10 @@
+.list-view .list-cell:even {
+    -fx-background-color: none;
+    -fx-text-fill: #a1a1a1;
+    -fx-alignment: center;
+}
+.list-view .list-cell:odd {
+    -fx-background-color: none;
+    -fx-text-fill: #a1a1a1;
+    -fx-alignment: center;
+}
