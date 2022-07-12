@@ -18,6 +18,7 @@ public class AfterGameController {
     @FXML
     Button button_restart, button_quit;
     private void update() {
+        updateLayout();
         try {
             if (ClientApplication.api.isStarted()) {
                 JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Game.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
@@ -48,11 +49,12 @@ public class AfterGameController {
         }
     }
     public void initialize() {
-        output_gameID.setText("The GameID is: " + ClientApplication.api.gameid);
+        output_gameID.setText("The Game ID is: " + ClientApplication.api.gameid);
+        updateLayout();
         try {
             if ((ClientApplication.api.getWinner()).equalsIgnoreCase(ClientApplication.api.username)) output_result.setText("You won");
             else output_result.setText("You lost");
-            output_winner.setText("The winner of this round is: " + ClientApplication.api.getWinner());
+            output_winner.setText("The winner is: " + ClientApplication.api.getWinner());
         } catch (Exception e) {
             output_error.setText(e.getMessage());
             errorTimer = System.currentTimeMillis();
@@ -61,5 +63,30 @@ public class AfterGameController {
         tl = new Timeline(new KeyFrame(Duration.millis(500), e ->update()));
         tl.setCycleCount(Timeline.INDEFINITE);
         tl.play();
+    }
+
+    private double width = 0.0;
+
+    private double height = 0.0;
+
+    private void updateLayout() {
+        double tempWidth = ClientApplication.stage.getWidth();
+        double tempHeight = ClientApplication.stage.getHeight();
+        if (width != tempWidth || height != tempHeight) {
+            width = tempWidth;
+            height = tempHeight;
+            output_result.setLayoutX(tempWidth / 2 - 360);
+            output_result.setLayoutY(tempHeight / 2 - 250);
+            output_winner.setLayoutX(tempWidth / 2 - 360);
+            output_winner.setLayoutY(tempHeight / 2 - 100);
+            button_restart.setLayoutX(tempWidth / 2 - 140 - 150);
+            button_restart.setLayoutY(tempHeight / 2);
+            button_quit.setLayoutX(tempWidth / 2 - 140 + 150);
+            button_quit.setLayoutY(tempHeight / 2);
+            output_gameID.setLayoutX(tempWidth / 2 - 150);
+            output_gameID.setLayoutY(tempHeight / 2 + 100);
+            output_error.setLayoutX(tempWidth / 2 - 360);
+            output_error.setLayoutY(tempHeight / 2 + 140);
+        }
     }
 }

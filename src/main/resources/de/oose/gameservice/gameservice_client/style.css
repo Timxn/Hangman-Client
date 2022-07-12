@@ -56,19 +56,35 @@
     -fx-pref-width: 720;
 }
 
-.text-highscore-pink {
-    -fx-text-fill: #FC46AA;
-    -fx-alignment: center;
-    -fx-font-size: 80;
-    -fx-pref-height: 80;
-    -fx-pref-width: 720;
-}
-
 .output-already-guessed {
     -fx-text-fill: #151616;
     -fx-alignment: center;
     -fx-font-size: 20;
     -fx-pref-height: 20;
+    -fx-pref-width: 720;
+}
+
+.output-result {
+    -fx-text-fill: #FC46AA;
+    -fx-alignment: center;
+    -fx-font-size: 120;
+    -fx-pref-height: 120;
+    -fx-pref-width: 720;
+}
+
+.output-winner {
+    -fx-text-fill: #a1a1a1;
+    -fx-alignment: center;
+    -fx-font-size: 40;
+    -fx-pref-height: 40;
+    -fx-pref-width: 720;
+}
+
+.text-highscore-pink {
+    -fx-text-fill: #FC46AA;
+    -fx-alignment: center;
+    -fx-font-size: 80;
+    -fx-pref-height: 80;
     -fx-pref-width: 720;
 }
 
