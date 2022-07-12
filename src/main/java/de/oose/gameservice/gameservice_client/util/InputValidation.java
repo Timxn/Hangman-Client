@@ -7,6 +7,7 @@ public class InputValidation {
     }
 
     public static char getFirstCharAsLowerCaseAlphabeticalChar(String input) throws Exception {
+        if (input == null) throw new Exception("Input is empty");
         if (input.isBlank()) throw new Exception("Input is empty");
         char output = input.charAt(0);
         output = Character.toLowerCase(output);
