@@ -8,6 +8,6 @@
 <AnchorPane fx:controller="de.oose.gameservice.gameservice_client.HighscoresController" styleClass="black-bg" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" >
     <Label fx:id="text_highscore"  text="Highscores" styleClass="text-highscore-pink"/>
     <ListView fx:id="output_highscore" styleClass="list-view"/>
-    <Button onAction="#back" fx:id="button_back" mnemonicParsing="false" text="Leave Game" styleClass="button-80"/>
+    <Button onAction="#back" fx:id="button_back" mnemonicParsing="false" text="Back" styleClass="button-80"/>
     <Label fx:id="output_error" styleClass="error-message"/>
 </AnchorPane>
