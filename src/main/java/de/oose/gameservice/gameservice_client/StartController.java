@@ -64,8 +64,11 @@ public class StartController {
     }
     @FXML
     public void onShowHighScore() {
-        output_error.setText("Highscore not implemented yet!");
-        //needs to be implemented
+        try {
+            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Highscores.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
+        } catch (IOException e) {
+            output_error.setText(e.getMessage());
+        }
     }
 
     private void joinWaitroom() {
