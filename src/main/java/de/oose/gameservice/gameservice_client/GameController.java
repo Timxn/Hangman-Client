@@ -21,6 +21,8 @@ public class GameController {
     boolean isGod, hasWord;
     String isTurn = "";
     Timeline tl;
+    Long errorTimer = 0L;
+    Long timeToDisplayErrors = 10000L;
     @FXML
     ImageView output_hangman;
     @FXML
@@ -89,7 +91,9 @@ public class GameController {
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
+        if (!output_error.getText().equals("")) if (errorTimer+ timeToDisplayErrors < System.currentTimeMillis()) output_error.setText("");
     }
 
     private void enterAfterGame() {
@@ -97,6 +101,7 @@ public class GameController {
             JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "AfterGame.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
         } catch (IOException e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
     }
 
@@ -110,9 +115,11 @@ public class GameController {
                 input_game_character.setText(null);
             } else {
                 output_error.setText("Not your turn!");
+                errorTimer = System.currentTimeMillis();
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
 
     }
@@ -126,6 +133,7 @@ public class GameController {
             if (isGod) input_game_character.setOnKeyReleased(null);
         } catch (Exception e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
     }
 
