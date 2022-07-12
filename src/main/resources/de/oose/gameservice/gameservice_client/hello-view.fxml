@@ -5,8 +5,8 @@
 
 <AnchorPane fx:controller="de.oose.gameservice.gameservice_client.StartController" styleClass="black-bg" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="text_hangman" text="[hangman.online]" styleClass="text-hangman"/>
-    <TextField fx:id="input_user_name" promptText="Username" styleClass="input-big"/>
-    <TextField fx:id="input_gameID" promptText="Game ID" onKeyReleased="#limitInputToFourChar" styleClass="input-big"/>
+    <TextField fx:id="input_user_name" onAction="#onCreateGame" promptText="Username" styleClass="input-big"/>
+    <TextField fx:id="input_gameID" onAction="#onJoinGame" promptText="Game ID" onKeyReleased="#limitInputToFourChar" styleClass="input-big"/>
     <Button fx:id="button_create_game" onAction="#onCreateGame" mnemonicParsing="false" text="Create Game" styleClass="button-60"/>
     <Button fx:id="button_join_game" onAction="#onJoinGame" mnemonicParsing="false" text="Join Game" styleClass="button-60"/>
     <Button fx:id="button_close_client" onAction="#onClose" mnemonicParsing="false" text="Close Client" styleClass="button-60"/>
