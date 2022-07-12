@@ -3,6 +3,8 @@ package de.oose.gameservice.api;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.*;
 
@@ -194,6 +196,23 @@ public class Api {
             throw new Exception(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
+    }
+
+    public List<String> getScoreboard() throws Exception {
+        JSONObject response = null;
+        try {
+            JSONObject request = new JSONObject().put("command", "getScoreboard");
+            response = sendRequest(request);
+        } catch (IOException | ClassNotFoundException e) {
+        }
+        List<String> tmp = new ArrayList<>();
+        try {
+            for (Object user:response.getJSONArray("scoreboard").toList()) {
+                tmp.add(user.toString());
+            }
+        } catch (JSONException e) {
+        }
+        return tmp;
     }
 
     public String getGameID() {

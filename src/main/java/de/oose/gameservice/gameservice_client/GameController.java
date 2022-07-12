@@ -21,32 +21,38 @@ public class GameController {
     boolean isGod, hasWord;
     String isTurn = "";
     Timeline tl;
+    Long errorTimer = 0L;
+    Long timeToDisplayErrors = 10000L;
     @FXML
     ImageView output_hangman;
     @FXML
-    Label output_word, output_error, output_already_guessed, output_current_player, info_isPlaying;
+    Label output_word, output_error, output_already_guessed, output_current_player;
     @FXML
     TextField input_game_character;
     @FXML
     Button button_game_character;
+
     private void update() {
+        updateLayout();
         try {
             try {
                 if (!api.isStarted()) api.getWinner();
             } catch (Exception e) {
-                JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Lobby.fxml", 864, 569);
+                JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Lobby.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
             }
             if (!hasWord) {
+                output_word.setText("Word pending...");
+                output_already_guessed.setText("Nothing guessed yet...");
+                output_current_player.setText("God is thinking...");
                 if (isGod) {
-                    button_game_character.setText("enter word!");
-                    input_game_character.setPromptText("word");
+                    button_game_character.setText("Set Word!");
+                    input_game_character.setPromptText("Word");
                 } else {
                     input_game_character.setDisable(true);
                     button_game_character.setDisable(true);
                 }
                 hasWord = api.hasWord();
             } else {
-                info_isPlaying.setText("is playing");
                 JSONObject updateGame = api.updateGame();
                 isTurn = updateGame.getString("whoseTurnIsIt");
                 if (isGod) {
@@ -83,19 +89,22 @@ public class GameController {
                 String triedChars = updateGame.getString("characterList");
 
                 if (isTurn.equals("ERROR")) output_error.setText("No ones Turn");
-                else output_current_player.setText(isTurn);
-                output_already_guessed.setText(triedChars);
+                else output_current_player.setText(isTurn + " is playing!");
+                output_already_guessed.setText("Already guessed: " + triedChars);
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
+        if (!output_error.getText().equals("")) if (errorTimer+ timeToDisplayErrors < System.currentTimeMillis()) output_error.setText("");
     }
 
     private void enterAfterGame() {
         try {
-            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "AfterGame.fxml", 712, 522);
+            JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "AfterGame.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
         } catch (IOException e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
     }
 
@@ -109,21 +118,25 @@ public class GameController {
                 input_game_character.setText(null);
             } else {
                 output_error.setText("Not your turn!");
+                errorTimer = System.currentTimeMillis();
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
 
     }
     public void initialize() {
-        tl = new Timeline(new KeyFrame(Duration.seconds(1), e ->update()));
+        tl = new Timeline(new KeyFrame(Duration.millis(16.67), e ->update()));
         tl.setCycleCount(Timeline.INDEFINITE);
         tl.play();
+        updateLayout();
         try {
             isGod = api.isGod();
             if (isGod) input_game_character.setOnKeyReleased(null);
         } catch (Exception e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
     }
 
@@ -132,6 +145,32 @@ public class GameController {
             input_game_character.setText(String.valueOf(input_game_character.getText().charAt(input_game_character.getLength() - 1)));
             input_game_character.positionCaret(input_game_character.getLength());
         }
+    }
 
+    private double width = 0.0;
+
+    private double height = 0.0;
+
+    private void updateLayout() {
+        double tempWidth = ClientApplication.stage.getWidth();
+        double tempHeight = ClientApplication.stage.getHeight();
+        if (width != tempWidth || height != tempHeight) {
+            width = tempWidth;
+            height = tempHeight;
+            output_hangman.setLayoutX(tempWidth / 2 - 300 - 50);
+            output_hangman.setLayoutY(tempHeight / 2 - 150);
+            output_word.setLayoutX(tempWidth / 2 - 360);
+            output_word.setLayoutY(tempHeight / 2 - 240);
+            input_game_character.setLayoutX(tempWidth / 2 + 100);
+            input_game_character.setLayoutY(tempHeight / 2 - 60);
+            button_game_character.setLayoutX(tempWidth / 2 + 100);
+            button_game_character.setLayoutY(tempHeight / 2 + 20);
+            output_current_player.setLayoutX(tempWidth / 2 + 90);
+            output_current_player.setLayoutY(tempHeight / 2 - 100);
+            output_already_guessed.setLayoutX(tempWidth / 2 - 360);
+            output_already_guessed.setLayoutY(tempHeight / 2 - 180);
+            output_error.setLayoutX(tempWidth / 2 - 360);
+            output_error.setLayoutY(tempHeight / 2 + 140);
+        }
     }
 }

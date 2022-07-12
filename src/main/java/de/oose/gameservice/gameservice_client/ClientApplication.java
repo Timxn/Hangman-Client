@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static java.lang.System.exit;
 
@@ -15,13 +16,17 @@ public class ClientApplication extends Application {
     public static Stage stage;
     @Override
     public void start(Stage stage) throws IOException {
-        this.stage = stage;
+        ClientApplication.stage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1186, 498);
-        this.stage.setTitle("HANG YOURSELF!");
-        this.stage.setScene(scene);
-        this.stage.show();
-        this.stage.setOnCloseRequest(e -> close());
+        Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(Objects.requireNonNull(ClientApplication.class.getResource("style.css")).toExternalForm());
+        ClientApplication.stage.setTitle("hangman.online - by Timon Stronczek, Justus Pfaue and Bonnie Jo Mayer");
+        ClientApplication.stage.setScene(scene);
+        ClientApplication.stage.setMinWidth(720);
+        ClientApplication.stage.setMinHeight(480);
+        ClientApplication.stage.setMaximized(true);
+        ClientApplication.stage.show();
+        ClientApplication.stage.setOnCloseRequest(e -> close());
     }
 
     private void close() {
@@ -29,7 +34,7 @@ public class ClientApplication extends Application {
             api.close();
             exit(0);
         } catch (Exception e) {
-            System.err.println("sucks to be you");
+            System.err.println("Client closed!");
         }
     }
 

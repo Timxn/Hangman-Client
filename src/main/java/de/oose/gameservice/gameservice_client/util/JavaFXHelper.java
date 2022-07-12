@@ -7,22 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class JavaFXHelper {
-    /**
-     * @param stage The global stage that is the program
-     * @param filename The name of the page. "Test.fxml"
-     * @param width
-     * @param height
-     * @throws IOException
-     */
-    public static void enterPage(Stage stage, String filename, int width, int height) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource(filename));
-        Scene scene = new Scene(fxmlLoader.load(), width, height);
-        stage.setScene(scene);
-        stage.show();
-    }
-
     /**
      * @param tl Timeline that has to be stopped
      * @param stage The global stage that is the program
@@ -31,10 +18,11 @@ public class JavaFXHelper {
      * @param height
      * @throws IOException
      */
-    public static void enterPageWithTimeline(Timeline tl, Stage stage, String filename, int width, int height) throws IOException {
+    public static void enterPageWithTimeline(Timeline tl, Stage stage, String filename, double width, double height) throws IOException {
         tl.stop();
         FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource(filename));
         Scene scene = new Scene(fxmlLoader.load(), width, height);
+        scene.getStylesheets().add(Objects.requireNonNull(ClientApplication.class.getResource("style.css")).toExternalForm());
         stage.setScene(scene);
         stage.show();
     }
