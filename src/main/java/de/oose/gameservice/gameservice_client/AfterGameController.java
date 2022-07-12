@@ -11,6 +11,8 @@ import javafx.util.Duration;
 
 public class AfterGameController {
     Timeline tl;
+    Long errorTimer = 0L;
+    Long timeToDisplayErrors = 10000L;
     @FXML
     Label output_result, output_winner, output_gameID, output_error;
     @FXML
@@ -22,7 +24,9 @@ public class AfterGameController {
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
+        if (!output_error.getText().equals("")) if (errorTimer+ timeToDisplayErrors < System.currentTimeMillis()) output_error.setText("");
     }
     public void restart() {
         try {
@@ -30,6 +34,7 @@ public class AfterGameController {
         } catch (Exception e) {
             // refactor
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
     }
     public void quit() {
@@ -39,6 +44,7 @@ public class AfterGameController {
         } catch (Exception e) {
             // refactor
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
     }
     public void initialize() {
@@ -49,6 +55,7 @@ public class AfterGameController {
             output_winner.setText("The winner of this round is: " + ClientApplication.api.getWinner());
         } catch (Exception e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
 
         tl = new Timeline(new KeyFrame(Duration.millis(500), e ->update()));

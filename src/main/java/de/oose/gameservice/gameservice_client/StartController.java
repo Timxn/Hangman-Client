@@ -17,6 +17,8 @@ import static java.lang.System.exit;
 
 public class StartController {
     Timeline tl;
+    Long errorTimer = 0L;
+    Long timeToDisplayErrors = 10000L;
     @FXML
     private Button button_create_game, button_join_game, button_close_client, button_show_high_score;
     @FXML
@@ -39,6 +41,7 @@ public class StartController {
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
     }
 
@@ -50,6 +53,7 @@ public class StartController {
             }
         } catch (Exception e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
     }
 
@@ -60,11 +64,13 @@ public class StartController {
             exit(0);
         } catch (Exception e) {
             System.err.println("Error while closing client!");
+            errorTimer = System.currentTimeMillis();
         }
     }
     @FXML
     public void onShowHighScore() {
         output_error.setText("Highscore not implemented yet!");
+        errorTimer = System.currentTimeMillis();
         //needs to be implemented
     }
 
@@ -73,6 +79,7 @@ public class StartController {
             JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Lobby.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
         } catch (IOException e) {
             output_error.setText("Should join waitroom. Something is really broken!");
+            errorTimer = System.currentTimeMillis();
         }
     }
 
@@ -83,8 +90,10 @@ public class StartController {
                 api = new Api("localhost", 8001);
             } catch (IOException e) {
                 output_error.setText("Server offline");
+                errorTimer = System.currentTimeMillis();
             }
         }
+        if (!output_error.getText().equals("")) if (errorTimer+ timeToDisplayErrors < System.currentTimeMillis()) output_error.setText("");
     }
 
     public void limitInputToFourChar() {

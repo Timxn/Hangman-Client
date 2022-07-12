@@ -18,6 +18,8 @@ import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class LobbyController {
     Timeline tl;
+    Long errorTimer = 0L;
+    Long timeToDisplayErrors = 10000L;
     @FXML
     Label output_gameID, output_error, text_gameid, text_players;
     @FXML
@@ -26,20 +28,24 @@ public class LobbyController {
     ListView<Object> output_player;
     private void update() {
         updateLayout();
-        JSONObject response;
-        try {
-            response = api.updateLobby();
-        } catch (Exception e) {
-            output_error.setText(e.getMessage());
-            return;
+        {
+            JSONObject response;
+            try {
+                response = api.updateLobby();
+            } catch (Exception e) {
+                output_error.setText(e.getMessage());
+                errorTimer = System.currentTimeMillis();
+                return;
+            }
+            if (response.getBoolean("isStarted")) enterGame();
+            output_gameID.setText(response.getString("gameID"));
+            ArrayList<String> tmp = new ArrayList<>();
+            for (int i = 0; i < response.getJSONArray("userList").length(); i++) {
+                tmp.add(response.getJSONArray("userList").getString(i));
+            }
+            output_player.getItems().setAll(tmp);
         }
-        if (response.getBoolean("isStarted")) enterGame();
-        output_gameID.setText(response.getString("gameID"));
-        ArrayList<String> tmp = new ArrayList<>();
-        for (int i = 0; i < response.getJSONArray("userList").length(); i++) {
-            tmp.add(response.getJSONArray("userList").getString(i));
-        }
-        output_player.getItems().setAll(tmp);
+        if (!output_error.getText().equals("")) if (errorTimer+ timeToDisplayErrors < System.currentTimeMillis()) output_error.setText("");
     }
 
     private void enterGame() {
@@ -47,6 +53,7 @@ public class LobbyController {
             JavaFXHelper.enterPageWithTimeline(tl, ClientApplication.stage, "Game.fxml", ClientApplication.stage.getWidth(), ClientApplication.stage.getHeight());
         } catch (IOException e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
     }
 
@@ -57,6 +64,7 @@ public class LobbyController {
         } catch (Exception e) {
             // refactor
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
     }
 
@@ -65,6 +73,7 @@ public class LobbyController {
             api.startGame();
         } catch (Exception e) {
             output_error.setText(e.getMessage());
+            errorTimer = System.currentTimeMillis();
         }
     }
 
