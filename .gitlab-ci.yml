@@ -19,13 +19,13 @@ before_script:
 build:
   image: gradle:latest
   stage: build
-    script: gradle --build-cache clean build jpackage
-    cache:
-      key: "$CI_COMMIT_REF_NAME"
-      policy: push
-      paths:
-        - build
-        - .gradle
+  script: gradle --build-cache clean build jpackage
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: push
+    paths:
+      - build
+      - .gradle
 
 upload:
   stage: upload
