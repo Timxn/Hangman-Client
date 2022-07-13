@@ -20,7 +20,6 @@ variables:
 before_script:
   - GRADLE_USER_HOME="$(pwd)/.gradle"
   - export GRADLE_USER_HOME
-  - apt install binutils
 
 build:
   stage: build
@@ -28,20 +27,6 @@ build:
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
-    paths:
-      - build
-      - .gradle
-
-deploy:
-  stage: deploy
-  script: gradle jpackage
-  artifacts:
-    when: always
-    paths: 
-      - build/jpackage/hangman
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: pull
     paths:
       - build
       - .gradle
