@@ -12,7 +12,7 @@ import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class Api {
     public String username;
-    public String gameid;
+    public String gameID;
     private Socket socket;
     private DataOutputStream objectOutputStream;
     private DataInputStream objectInputStream;
@@ -31,7 +31,7 @@ public class Api {
             throw new RuntimeException(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
-        gameid = response.getString("gameID");
+        gameID = response.getString("gameID");
         return response;
     }
 
@@ -157,7 +157,7 @@ public class Api {
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        if (!(response.getString("status").equals("successful"))) throw new Exception("Someone couldnt guess aint it? (server error)");
+        if (!(response.getString("status").equals("successful"))) throw new Exception("Someone couldn't guess ain't it? (server error)");
 
     }
 
@@ -185,7 +185,7 @@ public class Api {
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception("Could not leave match, please contact god!");
         this.username = null;
-        this.gameid = null;
+        this.gameID = null;
     }
     public void close() throws Exception {
         JSONObject response;
@@ -198,8 +198,8 @@ public class Api {
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
     }
 
-    public List<String> getScoreboard() {
-        JSONObject response = null;
+    public List<String> getScoreboard() throws Exception {
+        JSONObject response;
         try {
             JSONObject request = new JSONObject().put("command", "getScoreboard");
             response = sendRequest(request);
