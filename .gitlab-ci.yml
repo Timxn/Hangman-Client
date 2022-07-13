@@ -30,3 +30,17 @@ build:
     paths:
       - build
       - .gradle
+
+deploy:
+  stage: deploy
+  script: gradlew clean build jpackage
+  artifacts:
+    when: always
+    paths:
+      - build/jpackage/hangman
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
