@@ -49,7 +49,7 @@ public class AfterGameController {
         }
     }
     public void initialize() {
-        output_gameID.setText("The Game ID is: " + ClientApplication.api.gameid);
+        output_gameID.setText("Game ID: " + ClientApplication.api.gameid);
         updateLayout();
         try {
             if ((ClientApplication.api.getWinner()).equalsIgnoreCase(ClientApplication.api.username)) output_result.setText("You won");

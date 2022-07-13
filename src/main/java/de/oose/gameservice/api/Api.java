@@ -198,7 +198,7 @@ public class Api {
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
     }
 
-    public List<String> getScoreboard() throws Exception {
+    public List<String> getScoreboard() {
         JSONObject response = null;
         try {
             JSONObject request = new JSONObject().put("command", "getScoreboard");
