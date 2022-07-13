@@ -31,13 +31,16 @@ build:
       - build
       - .gradle
 
-deploy:
-  stage: deploy
+release:
+  stage: release
   script: gradle clean build jpackage
-  artifacts:
-    when: always
-    paths:
-      - build/jpackage/hangman
+  release:
+    tag_name: release
+    description: "Release $CI_COMMIT_REF_NAME"
+#  artifacts:
+#    when: always
+#    paths:
+#      - build/jpackage/hangman
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
