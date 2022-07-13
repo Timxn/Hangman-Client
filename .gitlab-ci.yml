@@ -35,6 +35,7 @@ deploy:
   stage: deploy
   script: gradle jpackage
   artifacts:
+    when: always
     paths: 
       - build/jpackage/hangman
   cache:
