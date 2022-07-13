@@ -204,6 +204,7 @@ public class Api {
             JSONObject request = new JSONObject().put("command", "getScoreboard");
             response = sendRequest(request);
         } catch (IOException | ClassNotFoundException e) {
+            throw new Exception(e);
         }
         List<String> tmp = new ArrayList<>();
         try {
@@ -211,6 +212,7 @@ public class Api {
                 tmp.add(user.toString());
             }
         } catch (JSONException e) {
+            throw new Exception(e);
         }
         return tmp;
     }
