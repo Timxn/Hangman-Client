@@ -49,6 +49,12 @@ jlink {
     launcher {
         name = 'hangman'
     }
+    jpackage {
+        installerOptions += [
+            '--app-version', version.replace('-', '.')
+        ]
+        installerType = 'rpm'
+    }
 }
 
 jlinkZip {
