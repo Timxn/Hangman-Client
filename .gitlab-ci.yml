@@ -33,7 +33,7 @@ build:
 
 deploy:
   stage: deploy
-  script: gradlew clean build jpackage
+  script: gradle clean build jpackage
   artifacts:
     when: always
     paths:
