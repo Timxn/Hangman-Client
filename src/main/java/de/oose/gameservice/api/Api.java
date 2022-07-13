@@ -12,7 +12,7 @@ import static de.oose.gameservice.gameservice_client.ClientApplication.api;
 
 public class Api {
     public String username;
-    public String gameID;
+    public String gameid;
     private Socket socket;
     private DataOutputStream objectOutputStream;
     private DataInputStream objectInputStream;
@@ -31,7 +31,7 @@ public class Api {
             throw new RuntimeException(e);
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception(response.getString("status"));
-        gameID = response.getString("gameID");
+        gameid = response.getString("gameID");
         return response;
     }
 
@@ -185,7 +185,7 @@ public class Api {
         }
         if (!(response.getString("status").equals("successful"))) throw new Exception("Could not leave match, please contact god!");
         this.username = null;
-        this.gameID = null;
+        this.gameid = null;
     }
     public void close() throws Exception {
         JSONObject response;
@@ -217,7 +217,7 @@ public class Api {
         return tmp;
     }
 
-    public String getGameID() {
+    public String getGameid() {
         JSONObject response;
         JSONObject request = new JSONObject().put("command", "getGameID");
         try {
