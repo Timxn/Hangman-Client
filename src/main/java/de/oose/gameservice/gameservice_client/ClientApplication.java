@@ -20,7 +20,7 @@ public class ClientApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(Objects.requireNonNull(ClientApplication.class.getResource("style.css")).toExternalForm());
-        ClientApplication.stage.setTitle("hangman.online - by Timon Stronczek, Justus Pfaue and Bonnie Jo Mayer");
+        ClientApplication.stage.setTitle("hangman.online - by Timon Stronczek and Justus Pfaue");
         ClientApplication.stage.setScene(scene);
         ClientApplication.stage.setMinWidth(720);
         ClientApplication.stage.setMinHeight(480);
